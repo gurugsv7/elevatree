@@ -239,7 +239,7 @@ export function Home() {
         initial="hidden"
         animate={teamInView ? "visible" : "hidden"}
         variants={sectionVariants}
-        className="py-16 bg-gradient-to-bl from-emerald-200/40 via-teal-100/40 to-emerald-200/40"
+        className="py-16 bg-gradient-to-bl from-emerald-200/40 via-teal-100/40 to-emerald-200/40 overflow-hidden"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -259,13 +259,15 @@ export function Home() {
           <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-2">
             <motion.div 
               variants={itemVariants}
-              className="relative"
-              whileHover={{ scale: 1.05 }}
+              className="relative aspect-video w-full"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
             >
               <img
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c"
                 alt="Team collaboration"
-                className="w-full h-96 object-cover rounded-lg shadow-lg"
+                className="w-full h-full object-cover rounded-lg shadow-lg"
+                loading="lazy"
               />
             </motion.div>
             <div className="space-y-6">
@@ -273,21 +275,23 @@ export function Home() {
                 variants={itemVariants}
                 className="text-lg text-gray-600"
               >
-                Our team consists of industry experts, career coaches, and technology professionals who are passionate about helping others succeed. Together, we bring decades of experience in career development and mentorship.
+                Our team consists of industry experts, career coaches, and technology professionals who are passionate about helping others succeed.
               </motion.p>
               <motion.p 
                 variants={itemVariants}
                 className="text-lg text-gray-600"
               >
-                Each team member is committed to providing personalized guidance and support to help you achieve your career goals. We understand the challenges of professional growth and are here to help you navigate your journey.
+                Each team member is committed to providing personalized guidance and support to help you achieve your career goals.
               </motion.p>
               <motion.div 
                 variants={itemVariants}
                 className="mt-8"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <Link
                   to="/mentors"
-                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700"
+                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 transition-colors"
                 >
                   Know Your Mentors
                   <ArrowRight className="ml-2 h-5 w-5" />
