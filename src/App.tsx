@@ -10,7 +10,7 @@ import { Resources } from './pages/Resources';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/elevatree">
       <div className="min-h-screen flex flex-col">
         <Navigation />
         <main className="flex-grow">
