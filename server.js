@@ -7,6 +7,12 @@ app.use(cors({
 }));
 app.use(express.json()); // Added middleware to parse JSON bodies
 
+// Remove or override the problematic Permissions-Policy header
+app.use((req, res, next) => {
+  res.removeHeader('Permissions-Policy');
+  next();
+});
+
 // ...existing code...
 
 app.post('/api/login', (req, res) => {
