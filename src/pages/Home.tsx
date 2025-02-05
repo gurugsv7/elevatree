@@ -120,7 +120,7 @@ export function Home() {
                 whileTap={{ scale: 0.95 }}
               >
                 <Link
-                  to="/register"
+                  to="/get-started"  // Changed from "/register" to "/get-started"
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-emerald-700 bg-white hover:bg-emerald-50 md:py-4 md:text-lg md:px-10 relative overflow-hidden group"
                 >
                   <motion.span
@@ -562,7 +562,7 @@ export function Home() {
           >
             <div className="inline-flex rounded-md shadow">
               <Link
-                to="/register"
+                to="/get-started"
                 className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-emerald-700 bg-white hover:bg-emerald-50"
               >
                 Get Started
