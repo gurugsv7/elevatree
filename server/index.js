@@ -102,9 +102,9 @@ app.post('/api/register', async (req, res) => {
 });
 
 app.post('/api/login', async (req, res) => {
+  console.log('Login attempt with body:', req.body); // Log the received payload
+  const { email, password } = req.body; // Ensure these field names match the client payload
   try {
-    const { email, password } = req.body;
-    
     // Read users
     const users = await readUsers();
     
