@@ -11,7 +11,9 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_here';
 const USERS_FILE = path.join(__dirname, 'data', 'users.json');
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['https://elevatree.onrender.com', 'http://localhost:5173']
+}));
 app.use(express.json());
 
 // Ensure users.json exists
@@ -150,7 +152,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Something went wrong!' });
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
