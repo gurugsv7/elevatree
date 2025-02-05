@@ -1,14 +1,12 @@
 import axios from 'axios';
 
-const baseURL = import.meta.env.VITE_API_URL || 
-  (import.meta.env.PROD 
-    ? 'https://elevatree.onrender.com/api'
-    : 'http://localhost:10000/api');
+const baseURL = 'https://elevatree.onrender.com/api';
 
 const api = axios.create({
   baseURL,
   headers: {
     'Content-Type': 'application/json',
+    'Accept': 'application/json'
   },
   withCredentials: false // Change this to false for now
 });
@@ -20,7 +18,7 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    console.log('Request:', {
+    console.log('Making request:', {
       url: config.url,
       method: config.method,
       data: config.data,
@@ -29,16 +27,26 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.error('Request Error:', error);
+    console.error('Request error:', error);
     return Promise.reject(error);
   }
 );
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log('Response received:', {
+      status: response.status,
+      data: response.data
+    });
+    return response;
+  },
   (error) => {
     if (error.response) {
-      console.error('Response error:', error.response.data);
+      console.error('Response error:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
     } else if (error.request) {
       console.error('Request error:', error.request);
     } else {

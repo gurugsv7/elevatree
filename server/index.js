@@ -11,13 +11,21 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_here';
 const USERS_FILE = path.join(__dirname, 'data', 'users.json');
 
 // Middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use((req, res, next) => {
+  console.log('Request Headers:', req.headers);
+  console.log('Request Body Raw:', req.body);
+  next();
+});
+
 app.use(cors({
   origin: '*', // Temporarily allow all origins for testing
   credentials: false,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Authorization']
 }));
-app.use(express.json());
 
 // Remove problematic Permissions-Policy header
 app.use((req, res, next) => {
@@ -109,44 +117,48 @@ app.post('/api/register', async (req, res) => {
 // Update login route with more detailed error handling
 app.post('/api/login', async (req, res) => {
   try {
-    console.log('Login request body:', req.body);
-    
-    if (!req.body) {
-      return res.status(400).json({ error: 'No request body provided' });
-    }
-
+    console.log('Raw request body:', req.body);
     const { email, password } = req.body;
-    
+
     if (!email || !password) {
-      return res.status(400).json({ 
+      console.log('Missing credentials:', { email: !!email, password: !!password });
+      return res.status(400).json({
         error: 'Missing credentials',
-        details: { email: !!email, password: !!password }
+        received: { email: !!email, password: !!password }
       });
     }
 
     const users = await readUsers();
-    const user = users.find(u => u.email === email);
-
+    console.log('Total users found:', users.length);
+    
+    const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
     if (!user) {
-      return res.status(400).json({ error: 'User not found' });
+      console.log('User not found for email:', email);
+      return res.status(400).json({ error: 'Invalid credentials' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
+    console.log('Password match result:', isMatch);
+    
     if (!isMatch) {
-      return res.status(400).json({ error: 'Invalid password' });
+      return res.status(400).json({ error: 'Invalid credentials' });
     }
 
     const token = jwt.sign({ userId: user.id }, JWT_SECRET);
     const { password: _, ...userData } = user;
     
-    console.log('Login successful:', { userId: user.id });
-    res.json({ token, user: userData });
+    console.log('Login successful for user:', user.email);
+    res.status(200).json({ 
+      token, 
+      user: userData,
+      message: 'Login successful'
+    });
 
   } catch (error) {
-    console.error('Server login error:', error);
+    console.error('Login error:', error);
     res.status(500).json({ 
-      error: 'Server error during login',
-      message: error.message
+      error: 'Server error',
+      details: error.message
     });
   }
 });

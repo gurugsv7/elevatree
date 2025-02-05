@@ -1,12 +1,9 @@
 import api from './api';
 
-interface LoginCredentials {
-  email: string;
-  password: string;
-}
-
-export const login = async ({ email, password }: LoginCredentials) => {
+export const login = async (email: string, password: string) => {
   try {
+    console.log('Attempting login with:', { email });
+    
     const response = await api.post('/login', {
       email: email.trim(),
       password: password.trim()
@@ -15,15 +12,12 @@ export const login = async ({ email, password }: LoginCredentials) => {
     if (response.data.token) {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
+      return response.data;
+    } else {
+      throw new Error('No token received');
     }
-    
-    return response.data;
   } catch (error: any) {
-    console.error('Login error details:', {
-      message: error.message,
-      response: error.response?.data,
-      status: error.response?.status
-    });
+    console.error('Login failed:', error.response?.data || error.message);
     throw error;
   }
 };
