@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { TreePine, Mail, Lock, ArrowRight, User } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { auth } from '../api';
 
 export function SignIn() {
   const [formData, setFormData] = useState({
@@ -26,13 +27,7 @@ export function SignIn() {
         password: formData.password
       } : formData;
 
-      const response = await fetch(`http://localhost:5000/api/${endpoint}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
+      const response = await auth.login(formData.email, formData.password);
 
       const data = await response.json();
 
