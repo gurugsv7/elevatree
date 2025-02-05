@@ -11,6 +11,15 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: ["lucide-react"],
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://elevatree.onrender.com',
+        changeOrigin: true,
+        secure: false,
+      }
+    }
   }
 });
 

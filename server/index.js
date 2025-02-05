@@ -12,12 +12,8 @@ const USERS_FILE = path.join(__dirname, 'data', 'users.json');
 
 // Middleware
 app.use(cors({
-  origin: [
-    'https://gurugsv7.github.io', // added GitHub Pages domain
-    'https://elevatree.onrender.com',
-    'http://localhost:5173'
-  ],
-  credentials: true,
+  origin: '*', // Temporarily allow all origins for testing
+  credentials: false,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -110,43 +106,48 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
+// Update login route with more detailed error handling
 app.post('/api/login', async (req, res) => {
-  console.log('Login attempt with body:', req.body); // Log the received payload
-  console.log('Headers:', req.headers); // Log headers for debugging
-
-  const { email, password } = req.body;
-  
-  if (!email || !password) {
-    console.error('Missing credentials - Email:', !!email, 'Password:', !!password);
-    return res.status(400).json({ error: 'Email and password are required.' });
-  }
-
   try {
-    const users = await readUsers();
-    console.log('Found users:', users.length); // Log user count
+    console.log('Login request body:', req.body);
     
-    const user = users.find(u => u.email === email);
-    if (!user) {
-      console.log('User not found for email:', email);
-      return res.status(400).json({ error: 'Invalid credentials' });
+    if (!req.body) {
+      return res.status(400).json({ error: 'No request body provided' });
     }
 
-    // Check password
+    const { email, password } = req.body;
+    
+    if (!email || !password) {
+      return res.status(400).json({ 
+        error: 'Missing credentials',
+        details: { email: !!email, password: !!password }
+      });
+    }
+
+    const users = await readUsers();
+    const user = users.find(u => u.email === email);
+
+    if (!user) {
+      return res.status(400).json({ error: 'User not found' });
+    }
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ error: 'Invalid credentials' });
+      return res.status(400).json({ error: 'Invalid password' });
     }
 
-    // Generate token
     const token = jwt.sign({ userId: user.id }, JWT_SECRET);
-
-    // Return user data without password
     const { password: _, ...userData } = user;
+    
+    console.log('Login successful:', { userId: user.id });
     res.json({ token, user: userData });
 
   } catch (error) {
-    console.error('Login error:', error); // Detailed error logging
-    res.status(400).json({ error: error.message });
+    console.error('Server login error:', error);
+    res.status(500).json({ 
+      error: 'Server error during login',
+      message: error.message
+    });
   }
 });
 
