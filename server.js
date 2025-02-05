@@ -10,9 +10,10 @@ app.use(express.json()); // Added middleware to parse JSON bodies
 // ...existing code...
 
 app.post('/api/login', (req, res) => {
-  // Validate input payload (e.g., username and password)
+  console.log('Login attempt with body:', req.body); // Log the received payload
   const { username, password } = req.body;
   if (!username || !password) {
+    console.error('Missing credentials:', req.body); // Log error details
     return res.status(400).json({ error: 'Username and password are required.' });
   }
   // ...existing code to handle login...
