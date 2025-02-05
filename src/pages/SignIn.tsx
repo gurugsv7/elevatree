@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { TreePine, Mail, Lock, ArrowRight, User } from 'lucide-react';
 import { motion } from 'framer-motion';
+
+import axios from 'axios'; // Add this import
 import { auth } from '../api';
 
 export function SignIn() {
