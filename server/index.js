@@ -146,6 +146,11 @@ app.get('/api/profile', auth, async (req, res) => {
   }
 });
 
+// Default route to handle GET /
+app.get('/', (req, res) => {
+  res.send("Welcome to the Elevatree backend");
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);

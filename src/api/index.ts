@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+export const API_URL = import.meta.env.VITE_API_URL || 'https://elevatree.onrender.com/api';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -20,12 +20,12 @@ api.interceptors.request.use((config) => {
 });
 
 export const auth = {
-  login: (email: string, password: string) => 
-    api.post('/auth/login', { email, password }),
-  register: (userData: any) => 
-    api.post('/auth/register', userData),
-  getCurrentUser: () => 
-    api.get('/auth/me'),
+  login: (email: string, password: string) =>
+    api.post('/api/login', { email, password }),
+  register: (userData: any) =>
+    api.post('/api/register', userData),
+  getCurrentUser: () =>
+    api.get('/api/profile'),
 };
 
 export const mentors = {
