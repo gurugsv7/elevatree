@@ -27,7 +27,14 @@ export function SignIn() {
         password: formData.password
       } : formData;
 
-      const response = await auth.login(formData.email, formData.password);
+      const response = await axios.post('https://elevatree.onrender.com/api/login', {
+        email: formData.email, // Changed from username to email
+        password: formData.password
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
       const data = response.data; // use Axios response.data
 
       if (response.status === 200) {
