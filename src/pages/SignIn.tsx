@@ -28,18 +28,17 @@ export function SignIn() {
       } : formData;
 
       const response = await auth.login(formData.email, formData.password);
+      const data = response.data; // use Axios response.data
 
-      const data = await response.json();
-
-      if (!response.ok) {
+      if (response.status === 200) {
+        // Store the token and navigate
+        localStorage.setItem('token', data.token);
+        // Dispatch storage event for other components
+        window.dispatchEvent(new Event('storage'));
+        navigate('/'); // Changed from '/dashboard' to '/'
+      } else {
         throw new Error(data.error || data.message || `Failed to ${isLogin ? 'sign in' : 'sign up'}`);
       }
-
-      // Store the token and navigate
-      localStorage.setItem('token', data.token);
-      // Dispatch storage event for other components
-      window.dispatchEvent(new Event('storage'));
-      navigate('/'); // Changed from '/dashboard' to '/'
 
     } catch (err) {
       console.error('Auth error:', err);
