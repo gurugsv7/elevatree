@@ -20,17 +20,23 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Ensure users.json exists
+// Remove problematic Permissions-Policy header
+app.use((req, res, next) => {
+  res.removeHeader('Permissions-Policy');
+  next();
+});
+
+// Enhanced initialization
 async function initializeUsersFile() {
   try {
     await fs.access(USERS_FILE);
+    console.log('Users file exists');
   } catch {
+    console.log('Creating new users file');
     await fs.mkdir(path.dirname(USERS_FILE), { recursive: true });
     await fs.writeFile(USERS_FILE, JSON.stringify({ users: [] }));
   }
 }
-
-initializeUsersFile();
 
 // Helper functions
 async function readUsers() {
@@ -103,14 +109,22 @@ app.post('/api/register', async (req, res) => {
 
 app.post('/api/login', async (req, res) => {
   console.log('Login attempt with body:', req.body); // Log the received payload
-  const { email, password } = req.body; // Ensure these field names match the client payload
+  console.log('Headers:', req.headers); // Log headers for debugging
+
+  const { email, password } = req.body;
+  
+  if (!email || !password) {
+    console.error('Missing credentials - Email:', !!email, 'Password:', !!password);
+    return res.status(400).json({ error: 'Email and password are required.' });
+  }
+
   try {
-    // Read users
     const users = await readUsers();
+    console.log('Found users:', users.length); // Log user count
     
-    // Find user
     const user = users.find(u => u.email === email);
     if (!user) {
+      console.log('User not found for email:', email);
       return res.status(400).json({ error: 'Invalid credentials' });
     }
 
@@ -128,6 +142,7 @@ app.post('/api/login', async (req, res) => {
     res.json({ token, user: userData });
 
   } catch (error) {
+    console.error('Login error:', error); // Detailed error logging
     res.status(400).json({ error: error.message });
   }
 });
@@ -162,6 +177,15 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 10000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+
+// Initialize before starting server
+initializeUsersFile()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch(error => {
+    console.error('Failed to initialize:', error);
+    process.exit(1);
+  });
