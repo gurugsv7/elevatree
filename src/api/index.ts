@@ -21,11 +21,11 @@ api.interceptors.request.use((config) => {
 
 export const auth = {
   login: (email: string, password: string) =>
-    api.post('/api/login', { email, password }),
+    api.post('/login', { email, password }),
   register: (userData: any) =>
-    api.post('/api/register', userData),
+    api.post('/register', userData),
   getCurrentUser: () =>
-    api.get('/api/profile'),
+    api.get('/profile'),
 };
 
 export const mentors = {

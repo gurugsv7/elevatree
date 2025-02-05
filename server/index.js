@@ -12,7 +12,11 @@ const USERS_FILE = path.join(__dirname, 'data', 'users.json');
 
 // Middleware
 app.use(cors({
-  origin: ['https://elevatree.onrender.com', 'http://localhost:5173']
+  origin: [
+    'https://gurugsv7.github.io', // added GitHub Pages domain
+    'https://elevatree.onrender.com',
+    'http://localhost:5173'
+  ]
 }));
 app.use(express.json());
 
