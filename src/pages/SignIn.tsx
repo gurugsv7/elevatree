@@ -14,7 +14,7 @@ export function SignIn() {
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -23,21 +23,19 @@ export function SignIn() {
     setIsLoading(true);
 
     try {
-      const endpoint = isLogin ? 'login' : 'register';
+      const endpoint = isLogin ? '/login' : '/register';
+      const url = `http://127.0.0.1:5000/api${endpoint}`;
       const payload = isLogin ? {
         email: formData.email,
         password: formData.password
       } : formData;
 
-      const response = await axios.post('https://elevatree.onrender.com/api/login', {
-        email: formData.email, // Changed from username to email
-        password: formData.password
-      }, {
+      const response = await axios.post(url, payload, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
-      const data = response.data; // use Axios response.data
+      const data = response.data;
 
       if (response.status === 200) {
         // Store the token and navigate

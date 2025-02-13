@@ -4,6 +4,7 @@ import { Navigation } from './components/Navigation';
 import { Home } from './pages/Home';
 import { SignIn } from './pages/SignIn';
 import { Mentors } from './pages/Mentors';
+import { MentorDetails } from './pages/MentorDetails';
 import { Footer } from './components/Footer';
 import { AboutUs } from './pages/AboutUs';
 import { Resources } from './pages/Resources';
@@ -21,6 +22,7 @@ function App() {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/mentors" element={<Mentors />} />
+            <Route path="/mentor/:id" element={<MentorDetails />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="/get-started" element={<GetStarted />} />

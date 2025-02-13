@@ -1,34 +1,125 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, Star } from 'lucide-react';
+import { Search } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+const nesapriyan = new URL('../assets/nesapriyan.png', import.meta.url).href;
+const jayapriya = new URL('../assets/Jayapriya.png', import.meta.url).href;
+const rachael = new URL('../assets/JOY RECHAL .png', import.meta.url).href;
+const padmaja = new URL('../assets/padmaja.png', import.meta.url).href;
+const subashree = new URL('../assets/subashree.jpg', import.meta.url).href;
 
 const mentors = [
   {
-    name: 'Sarah Johnson',
-    role: 'Senior Career Coach',
-    expertise: 'Technology & Leadership',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330',
-    bio: '15+ years of experience in career development and leadership coaching.'
+    id: 'nesapriyan',
+    name: 'Nesapriyan.k',
+    role: 'Mentor',
+    expertise: 'Career Guidance',
+    image: nesapriyan,
+    bio: 'Dedicated career mentor with extensive experience.'
   },
   {
-    name: 'Michael Chen',
-    role: 'Industry Expert',
+    id: 'subiksha',
+    name: 'Subiksha. S',
+    role: 'Mentor',
+    expertise: 'Industry Expertise',
+    image: 'https://via.placeholder.com/150',
+    bio: 'Provides expert advice and personalized coaching.'
+  },
+  {
+    id: 'padmaja',
+    name: 'Padmaja. P',
+    role: 'Mentor',
+    expertise: 'Leadership',
+    image: padmaja,
+    bio: 'Experienced in nurturing leadership skills.'
+  },
+  {
+    id: 'mujibur',
+    name: 'Mujibur rahman.N',
+    role: 'Mentor',
+    expertise: 'Software Engineering',
+    image: 'https://via.placeholder.com/150',
+    bio: 'Technical expertise in software development.'
+  },
+  {
+    id: 'guna',
+    name: 'Guna. R',
+    role: 'Mentor',
+    expertise: 'Marketing',
+    image: 'https://via.placeholder.com/150',
+    bio: 'Expert in marketing and business growth strategies.'
+  },
+  {
+    id: 'avinash',
+    name: 'Avinash. K',
+    role: 'Mentor',
     expertise: 'Product Management',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e',
-    bio: 'Former Product Lead at major tech companies with expertise in product strategy.'
+    image: 'https://via.placeholder.com/150',
+    bio: 'Guides product development and management.'
   },
   {
-    name: 'Emily Rodriguez',
-    role: 'Career Strategist',
-    expertise: 'Professional Development',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80',
-    bio: 'Certified career coach specializing in personal branding and career transitions.'
+    id: 'eremiya',
+    name: 'Eremiya jero',
+    role: 'Mentor',
+    expertise: 'Design',
+    image: 'https://via.placeholder.com/150',
+    bio: 'Creative designer with a knack for innovative solutions.'
+  },
+  {
+    id: 'krithika',
+    name: 'Krithika',
+    role: 'Mentor',
+    expertise: 'Business Strategy',
+    image: 'https://via.placeholder.com/150',
+    bio: 'Provides strategic insights for business success.'
+  },
+  {
+    id: 'jayapriya',
+    name: 'Jayapriya',
+    role: 'Mentor',
+    expertise: 'Human Resources',
+    image: jayapriya,
+    bio: 'Expert in developing engaged and productive teams.'
+  },
+  {
+    id: 'subashree',
+    name: 'Subashree',
+    role: 'Mentor',
+    expertise: 'Finance',
+    image: subashree,
+    bio: 'Helps with financial planning and investment strategies.'
+  },
+  {
+    id: 'joyrechal',
+    name: 'Joy Rechal R',
+    role: 'Mentor',
+    expertise: 'Entrepreneurship',
+    image: rachael,
+    bio: 'Supports startups and entrepreneurial ventures.'
+  },
+  {
+    id: 'hemashree',
+    name: 'Hemashree',
+    role: 'Mentor',
+    expertise: 'Technology',
+    image: 'https://via.placeholder.com/150',
+    bio: 'Tech expert with deep industry insights.'
+  },
+  {
+    id: 'shalini',
+    name: 'Shalini',
+    role: 'Mentor',
+    expertise: 'Personal Branding',
+    image: 'https://via.placeholder.com/150',
+    bio: 'Guides professionals in building their personal brand.'
   }
 ];
 
 export function Mentors() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedExpertise, setSelectedExpertise] = useState('All');
+  const navigate = useNavigate();
 
   const expertiseAreas = ['All', 'Technology', 'Leadership', 'Product', 'Career Development'];
 
@@ -82,33 +173,32 @@ export function Mentors() {
               className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6"
             >
               <div className="flex items-start gap-4">
-                <img
-                  src={mentor.image}
-                  alt={mentor.name}
-                  className="w-24 h-24 rounded-full object-cover"
-                />
+                <div className={`relative ${mentor.name === 'Jayapriya' ? 'mt-4 -ml-2' : ''}`}>
+                  <img
+                    src={mentor.image}
+                    alt={mentor.name}
+                    className="w-24 h-24 rounded-full object-cover"
+                  />
+                </div>
                 <div>
                   <h3 className="text-xl font-semibold">{mentor.name}</h3>
                   <p className="text-emerald-600">{mentor.role}</p>
-                  <p className="text-sm text-gray-600 mt-1">
-                    <Star className="inline-block h-4 w-4 text-yellow-400 mr-1" />
-                    4.9/5.0 (120+ sessions)
-                  </p>
                 </div>
               </div>
               <div className="mt-4">
                 <p className="text-gray-600 mb-4">{mentor.bio}</p>
-                <div className="flex flex-wrap gap-2">
-                  {mentor.expertise.split('&').map(skill => (
-                    <span key={skill} className="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-sm">
-                      {skill.trim()}
-                    </span>
-                  ))}
-                </div>
               </div>
-              <button className="mt-4 w-full bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700 transition-colors">
-                Book a Session
-              </button>
+              <div className="mt-4 flex justify-between items-center">
+                <button
+                                  onClick={() => navigate(`/mentor/${mentor.id}`)}
+                                  className="text-emerald-600 hover:text-emerald-700 transition-colors font-medium"
+                                 >
+                                  Know More
+                </button>
+                <button className="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-colors">
+                  Book Session
+                </button>
+              </div>
             </motion.div>
           ))}
         </div>

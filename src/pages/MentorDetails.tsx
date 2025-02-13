@@ -1,0 +1,137 @@
+import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { NesapriyanProfile, SubashreeProfile, PadmajaProfile, JayapriyaProfile, JoyRechalProfile } from './mentorProfiles';
+
+interface MentorDetail {
+  name: string;
+  Component: React.ComponentType;
+  quote: {
+    text: string;
+    author: string;
+  };
+}
+
+const mentorDetails: Record<string, MentorDetail> = {
+  'nesapriyan': {
+    name: 'NESAPRIYAN.K',
+    Component: NesapriyanProfile,
+    quote: {
+      text: "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+      author: "Winston Churchill"
+    }
+  },
+  'subashree': {
+    name: 'SUBASHREE G',
+    Component: SubashreeProfile,
+    quote: {
+      text: "You Can't Connect the Dots Looking Forward; You Can Only Connect Them Looking Backwards.",
+      author: "Steve Jobs"
+    }
+  },
+  'padmaja': {
+    name: 'PADMAJA P',
+    Component: PadmajaProfile,
+    quote: {
+      text: "EVERY JOURNEY FROM UNCERTAINTY TO SUCCESS BEGINS WITH A SINGLE BOLD DECISION",
+      author: "Padmaja P"
+    }
+  },
+  'jayapriya': {
+    name: 'JAYAPRIYA R',
+    Component: JayapriyaProfile,
+    quote: {
+      text: "When you come to the end of your rope, tie a knot and hang on.",
+      author: "Franklin D. Roosevelt"
+    }
+  },
+  'joyrechal': {
+    name: 'R JOY RECHAL',
+    Component: JoyRechalProfile,
+    quote: {
+      text: "There are three ways to ultimate success: The first way is to be kind. The second way is to be kind. The third way is to be kind.",
+      author: "Mister Rogers"
+    }
+  }
+};
+
+export function MentorDetails() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const mentor = id ? mentorDetails[id] : null;
+
+  if (!mentor) {
+    return (
+      <div className="text-center py-12">
+        <h2 className="text-2xl text-gray-700">Mentor not found</h2>
+        <button
+          onClick={() => navigate('/mentors')}
+          className="mt-4 text-emerald-600 hover:text-emerald-700"
+        >
+          Back to Mentors
+        </button>
+      </div>
+    );
+  }
+
+  const ProfileComponent = mentor.Component;
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="flex flex-col min-h-screen"
+    >
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-r from-emerald-600 to-teal-600 py-24 overflow-hidden">
+        <motion.div
+          animate={{ rotate: [0, 360] }}
+          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+          className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full -mr-48 -mt-48"
+        />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+          <button
+            onClick={() => navigate('/mentors')}
+            className="mb-8 text-emerald-100 hover:text-white flex items-center justify-center"
+          >
+            <span>← Back to Mentors</span>
+          </button>
+          <h1 className="text-5xl font-bold text-white mb-8">
+            {mentor.name}
+          </h1>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="max-w-3xl mx-auto"
+          >
+            <blockquote className="text-2xl italic text-emerald-100 mb-4">
+              "{mentor.quote.text}"
+            </blockquote>
+            <p className="text-emerald-200">- {mentor.quote.author}</p>
+          </motion.div>
+        </div>
+
+        <motion.div
+          animate={{ rotate: [0, -360] }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-0 left-0 w-72 h-72 bg-white opacity-5 rounded-full -ml-36 -mb-36"
+        />
+      </section>
+
+      {/* Profile Content Section */}
+      <div className="flex-grow bg-gradient-to-b from-emerald-50 via-white to-emerald-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <ProfileComponent />
+          </motion.div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
