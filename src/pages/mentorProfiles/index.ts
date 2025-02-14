@@ -3,3 +3,8 @@ export { SubashreeProfile } from './SubashreeProfile';
 export { PadmajaProfile } from './PadmajaProfile';
 export { JayapriyaProfile } from './JayapriyaProfile';
 export { JoyRechalProfile } from './JoyRechalProfile';
+export { HemasreeProfile } from './HemasreeProfile';
+export { ShaliniProfile } from './ShaliniProfile';
+export { KiruthikaProfile } from './KiruthikaProfile';
+export { SantoshProfile } from './SantoshProfile';
+export { MujiburProfile } from './MujiburProfile';

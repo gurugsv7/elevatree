@@ -1,7 +1,7 @@
-import React from 'react';
+
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { NesapriyanProfile, SubashreeProfile, PadmajaProfile, JayapriyaProfile, JoyRechalProfile } from './mentorProfiles';
+import { NesapriyanProfile, SubashreeProfile, PadmajaProfile, JayapriyaProfile, JoyRechalProfile, HemasreeProfile, ShaliniProfile, KiruthikaProfile, SantoshProfile, MujiburProfile } from './mentorProfiles';
 
 interface MentorDetail {
   name: string;
@@ -41,7 +41,7 @@ const mentorDetails: Record<string, MentorDetail> = {
     name: 'JAYAPRIYA R',
     Component: JayapriyaProfile,
     quote: {
-      text: "When you come to the end of your rope, tie a knot and hang on.",
+      text: "hi.",
       author: "Franklin D. Roosevelt"
     }
   },
@@ -51,6 +51,46 @@ const mentorDetails: Record<string, MentorDetail> = {
     quote: {
       text: "There are three ways to ultimate success: The first way is to be kind. The second way is to be kind. The third way is to be kind.",
       author: "Mister Rogers"
+    }
+  },
+  'hemasree': {
+    name: 'HEMASREE G',
+    Component: HemasreeProfile,
+    quote: {
+      text: "From fear to fuel, from struggle to strength—my journey proves that determination can turn any challenge into success.",
+      author: "Hemasree G"
+    }
+  },
+  'shalini': {
+    name: 'SHALINI V',
+    Component: ShaliniProfile,
+    quote: {
+      text: "Sometimes, the best decisions come from unexpected places.",
+      author: "Shalini V"
+    }
+  },
+  'kiruthika': {
+    name: 'KIRUTHIKA M',
+    Component: KiruthikaProfile,
+    quote: {
+      text: "It does not matter how slowly you go as long as you do not stop.",
+      author: "Confucius"
+    }
+  },
+  'santosh': {
+    name: 'SANTOSH S',
+    Component: SantoshProfile,
+    quote: {
+      text: "One day, I will change my life for the better.",
+      author: "Santosh S"
+    }
+  },
+  'mujibur': {
+    name: 'MUJIBUR RAHMAN N',
+    Component: MujiburProfile,
+    quote: {
+      text: "Whether it's the depths of space or the frontiers of artificial intelligence, the spirit of exploration drives everything I do.",
+      author: "Mujibur Rahman N"
     }
   }
 };

@@ -8,6 +8,12 @@ const jayapriya = new URL('../assets/Jayapriya.png', import.meta.url).href;
 const rachael = new URL('../assets/JOY RECHAL .png', import.meta.url).href;
 const padmaja = new URL('../assets/padmaja.png', import.meta.url).href;
 const subashree = new URL('../assets/subashree.jpg', import.meta.url).href;
+const shalini = new URL('../assets/shalini.png', import.meta.url).href;
+const hemasree = new URL('../assets/hemasree.png', import.meta.url).href;
+const kiruthika = new URL('../assets/kiruthika.png', import.meta.url).href;
+const subiksha = new URL('../assets/Subiksha.png', import.meta.url).href;
+const santosh = new URL('../assets/santhosh.jpg', import.meta.url).href;
+const mujibur = new URL('../assets/mujibur.png', import.meta.url).href;
 
 const mentors = [
   {
@@ -23,7 +29,7 @@ const mentors = [
     name: 'Subiksha. S',
     role: 'Mentor',
     expertise: 'Industry Expertise',
-    image: 'https://via.placeholder.com/150',
+    image: subiksha,
     bio: 'Provides expert advice and personalized coaching.'
   },
   {
@@ -36,11 +42,11 @@ const mentors = [
   },
   {
     id: 'mujibur',
-    name: 'Mujibur rahman.N',
+    name: 'Mujibur Rahman N',
     role: 'Mentor',
-    expertise: 'Software Engineering',
-    image: 'https://via.placeholder.com/150',
-    bio: 'Technical expertise in software development.'
+    expertise: 'AI & ML',
+    image: mujibur,
+    bio: 'Born under a rare Mars alignment, exploring the frontiers of AI and space technology.'
   },
   {
     id: 'guna',
@@ -67,12 +73,12 @@ const mentors = [
     bio: 'Creative designer with a knack for innovative solutions.'
   },
   {
-    id: 'krithika',
-    name: 'Krithika',
+    id: 'kiruthika',
+    name: 'Kiruthika M',
     role: 'Mentor',
-    expertise: 'Business Strategy',
-    image: 'https://via.placeholder.com/150',
-    bio: 'Provides strategic insights for business success.'
+    expertise: 'Food Technology',
+    image: kiruthika,
+    bio: 'Expert in food technology with aspirations for public service.'
   },
   {
     id: 'jayapriya',
@@ -99,20 +105,28 @@ const mentors = [
     bio: 'Supports startups and entrepreneurial ventures.'
   },
   {
-    id: 'hemashree',
-    name: 'Hemashree',
+    id: 'hemasree',
+    name: 'Hemashree G',
     role: 'Mentor',
     expertise: 'Technology',
-    image: 'https://via.placeholder.com/150',
-    bio: 'Tech expert with deep industry insights.'
+    image: hemasree,
+    bio: 'Turning challenges into opportunities through determination and perseverance.'
   },
   {
     id: 'shalini',
-    name: 'Shalini',
+    name: 'Shalini V',
     role: 'Mentor',
-    expertise: 'Personal Branding',
-    image: 'https://via.placeholder.com/150',
-    bio: 'Guides professionals in building their personal brand.'
+    expertise: 'Technology',
+    image: shalini,
+    bio: 'Discovered her passion in technology through an unexpected journey.'
+  },
+  {
+    id: 'santosh',
+    name: 'Santosh S',
+    role: 'Mentor',
+    expertise: 'Career Guidance',
+    image: santosh,
+    bio: 'First-year BBA student passionate about helping others find their career path.'
   }
 ];
 
@@ -121,7 +135,7 @@ export function Mentors() {
   const [selectedExpertise, setSelectedExpertise] = useState('All');
   const navigate = useNavigate();
 
-  const expertiseAreas = ['All', 'Technology', 'Leadership', 'Product', 'Career Development'];
+  const expertiseAreas = ['All', 'Technology', 'Leadership', 'Product', 'Career Development', 'Food Technology'];
 
   const filteredMentors = mentors.filter(mentor => {
     const matchesSearch = mentor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -190,10 +204,10 @@ export function Mentors() {
               </div>
               <div className="mt-4 flex justify-between items-center">
                 <button
-                                  onClick={() => navigate(`/mentor/${mentor.id}`)}
-                                  className="text-emerald-600 hover:text-emerald-700 transition-colors font-medium"
-                                 >
-                                  Know More
+                  onClick={() => navigate(`/mentor/${mentor.id}`)}
+                  className="text-emerald-600 hover:text-emerald-700 transition-colors font-medium"
+                >
+                  Know More
                 </button>
                 <button className="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-colors">
                   Book Session

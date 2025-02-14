@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Users, BookOpen, Target } from 'lucide-react';
 import { motion, Variants, useInView } from 'framer-motion';
+import { ChatBot } from '../components/ChatBot';
 
 export function Home() {
   const containerVariants = {
@@ -571,6 +572,9 @@ export function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* Chat Bot */}
+      <ChatBot />
     </motion.div>
   );
 }
