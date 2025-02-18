@@ -84,7 +84,7 @@ export function Home() {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center">
-            <motion.h1 
+            <motion.h1
               variants={itemVariants}
               className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl"
             >

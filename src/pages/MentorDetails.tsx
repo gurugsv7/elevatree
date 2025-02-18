@@ -1,7 +1,12 @@
-
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { NesapriyanProfile, SubashreeProfile, PadmajaProfile, JayapriyaProfile, JoyRechalProfile, HemasreeProfile, ShaliniProfile, KiruthikaProfile, SantoshProfile, MujiburProfile } from './mentorProfiles';
+import { 
+  NesapriyanProfile, SubashreeProfile, PadmajaProfile, 
+  JayapriyaProfile, JoyRechalProfile, HemasreeProfile, 
+  ShaliniProfile, KiruthikaProfile, SantoshProfile, 
+  MujiburProfile, SubikshaProfile, AvinashProfile,
+  GunaProfile 
+} from './mentorProfiles';
 
 interface MentorDetail {
   name: string;
@@ -85,12 +90,36 @@ const mentorDetails: Record<string, MentorDetail> = {
       author: "Santosh S"
     }
   },
+  'subiksha': {
+    name: 'SUBIKSHA S',
+    Component: SubikshaProfile,
+    quote: {
+      text: "From childhood, I always had a passion for sharing knowledge 📚, but I never had a clear path.",
+      author: "Subiksha S"
+    }
+  },
   'mujibur': {
     name: 'MUJIBUR RAHMAN N',
     Component: MujiburProfile,
     quote: {
       text: "Whether it's the depths of space or the frontiers of artificial intelligence, the spirit of exploration drives everything I do.",
       author: "Mujibur Rahman N"
+    }
+  },
+  'avinash': {
+    name: 'AVINASH K',
+    Component: AvinashProfile,
+    quote: {
+      text: "The only way to do great work is to love what you do.",
+      author: "Steve Jobs"
+    }
+  },
+  'gunaprofile': {
+    name: 'GUNA R',
+    Component: GunaProfile,
+    quote: {
+      text: "From mechanical engineering to AI & ML, the journey of transformation continues.",
+      author: "Guna R"
     }
   }
 };

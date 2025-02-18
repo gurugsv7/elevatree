@@ -166,39 +166,6 @@ export function AboutUs() {
         </div>
       </div>
 
-      {/* Stats Section */}
-      <motion.div className="bg-gradient-to-r from-emerald-700 to-emerald-600 py-16 relative overflow-hidden">
-        <motion.div
-          animate={{ rotate: [0, 360] }}
-          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-          className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full -mr-48 -mt-48"
-        />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-            <div className="text-center">
-              <p className="text-4xl font-bold text-white">500+</p>
-              <p className="text-emerald-100">Active Mentors</p>
-            </div>
-            <div className="text-center">
-              <p className="text-4xl font-bold text-white">10K+</p>
-              <p className="text-emerald-100">Success Stories</p>
-            </div>
-            <div className="text-center">
-              <p className="text-4xl font-bold text-white">50+</p>
-              <p className="text-emerald-100">Countries</p>
-            </div>
-            <div className="text-center">
-              <p className="text-4xl font-bold text-white">95%</p>
-              <p className="text-emerald-100">Satisfaction Rate</p>
-            </div>
-          </div>
-        </div>
-        <motion.div
-          animate={{ rotate: [0, -360] }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-0 left-0 w-72 h-72 bg-white opacity-5 rounded-full -ml-36 -mb-36"
-        />
-      </motion.div>
 
       {/* Values Section */}
       <div className="py-16 bg-gradient-to-b from-emerald-100 via-white to-emerald-50">

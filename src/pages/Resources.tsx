@@ -1,91 +1,146 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Video, FileText, Download, ArrowRight } from 'lucide-react';
+import { FileText, Download, BookOpen, ExternalLink } from 'lucide-react';
 
 export function Resources() {
-  const categories = [
-    { title: 'Articles & Guides', icon: BookOpen },
-    { title: 'Video Tutorials', icon: Video },
-    { title: 'Templates', icon: FileText },
-    { title: 'Toolkits', icon: Download }
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.3 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100
+      }
+    }
+  };
+
+  const resources = [
+    {
+      title: "Our Journey: The Story of Elevatree",
+      shortDesc: "From Vision to Reality: The Birth of a Career Guidance Platform",
+      description: "Discover how a group of 15-16 passionate students came together to create Elevatree, their experiences, challenges, and the mission to guide students towards their dreams while nurturing their skills and mental well-being.",
+      path: "/resources/elevatree-journey.pdf",
+      icon: BookOpen
+    },
+    {
+      title: "Career Pathways Guide: STEM and Beyond",
+      shortDesc: "Comprehensive Career Guide for Modern Professionals",
+      description: "A detailed exploration of career opportunities across Engineering, Medicine, Teaching, Government Services, Arts & Design, and Legal Services. Find your path with our comprehensive career guide.",
+      path: "/resources/career-pathways-guide.pdf",
+      icon: FileText
+    }
   ];
 
   return (
-    <div className="bg-gradient-to-b from-emerald-50 via-white to-emerald-50 min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Resource Categories */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {categories.map((category, index) => (
-            <motion.div
-              key={category.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer"
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+      className="min-h-screen"
+    >
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-r from-emerald-600 to-teal-600 py-24">
+        <motion.div
+          animate={{ rotate: [0, 360] }}
+          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+          className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full -mr-48 -mt-48"
+        />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center">
+            <motion.h1
+              variants={itemVariants}
+              className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl"
             >
-              <category.icon className="h-8 w-8 text-emerald-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">{category.title}</h3>
-              <ArrowRight className="h-5 w-5 text-emerald-600" />
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Featured Resources */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">Featured Resources</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[1, 2, 3].map((item) => (
-              <motion.div
-                key={item}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: item * 0.1 }}
-                className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
-              >
-                <img
-                  src={`https://source.unsplash.com/random/400x200?career&${item}`}
-                  alt="Resource"
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">Career Guide {item}</h3>
-                  <p className="text-gray-600 mb-4">Essential tips and strategies for professional growth</p>
-                  <button className="text-emerald-600 hover:text-emerald-700 font-medium">
-                    Learn More
-                  </button>
-                </div>
-              </motion.div>
-            ))}
+              <span className="block">Resource Library</span>
+              <span className="block text-emerald-200 text-3xl mt-3">Empowering Your Career Journey</span>
+            </motion.h1>
+            <motion.p
+              variants={itemVariants}
+              className="mt-6 max-w-2xl mx-auto text-xl text-emerald-100"
+            >
+              Access our curated collection of career resources designed to guide and inspire your professional growth.
+            </motion.p>
           </div>
         </div>
+        
+        <motion.div
+          animate={{ rotate: [0, -360] }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-0 left-0 w-72 h-72 bg-white opacity-5 rounded-full -ml-36 -mb-36"
+        />
+      </section>
 
-        {/* Resource Library */}
-        <div>
-          <h2 className="text-2xl font-bold mb-6">Resource Library</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {Array.from({ length: 6 }).map((_, index) => (
+      {/* Resources Section */}
+      <section className="py-16 bg-gradient-to-b from-emerald-50 via-white to-emerald-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-8 lg:gap-12">
+            {resources.map((resource, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="flex items-center gap-4 bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                variants={itemVariants}
+                className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow p-8 relative overflow-hidden"
               >
-                <div className="bg-emerald-100 p-3 rounded-lg">
-                  <FileText className="h-6 w-6 text-emerald-600" />
+                {/* Background Pattern */}
+                <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-50 rounded-full -mr-20 -mt-20 opacity-50" />
+                
+                <div className="relative">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-emerald-100 rounded-lg">
+                      <resource.icon className="w-8 h-8 text-emerald-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-900">{resource.title}</h3>
+                      <p className="text-emerald-600 font-medium">{resource.shortDesc}</p>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-600 mb-6 text-lg leading-relaxed">
+                    {resource.description}
+                  </p>
+
+                  <motion.a
+                    href={resource.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-flex items-center px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors gap-2 font-medium"
+                  >
+                    <Download className="w-5 h-5" />
+                    Download PDF
+                    <ExternalLink className="w-4 h-4 ml-1" />
+                  </motion.a>
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-medium">Resource Title {index + 1}</h3>
-                  <p className="text-sm text-gray-600">Brief description of the resource</p>
-                </div>
-                <button className="text-emerald-600 hover:text-emerald-700">
-                  <Download className="h-5 w-5" />
-                </button>
               </motion.div>
             ))}
           </div>
+
+          {/* Additional Info Section */}
+          <motion.div
+            variants={itemVariants}
+            className="mt-16 text-center"
+          >
+            <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                Stay Updated
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Our resource library is regularly updated with new guides, tools, and materials to support your career development. Check back often for the latest additions.
+              </p>
+            </div>
+          </motion.div>
         </div>
-      </div>
-    </div>
+      </section>
+    </motion.div>
   );
 }

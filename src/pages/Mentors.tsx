@@ -14,134 +14,168 @@ const kiruthika = new URL('../assets/kiruthika.png', import.meta.url).href;
 const subiksha = new URL('../assets/Subiksha.png', import.meta.url).href;
 const santosh = new URL('../assets/santhosh.jpg', import.meta.url).href;
 const mujibur = new URL('../assets/mujibur.png', import.meta.url).href;
+const guna = new URL('../assets/guna.jpg', import.meta.url).href;
+const eremiya = new URL('../assets/eremiya jero.jpg', import.meta.url).href;
+const avinash = new URL('../assets/avinash.png', import.meta.url).href;
 
-const mentors = [
+interface Mentor {
+  id: string;
+  name: string;
+  role: string;
+  expertise: string;
+  image: string;
+  bio: string;
+  category: string;
+}
+
+const mentors: Mentor[] = [
   {
     id: 'nesapriyan',
     name: 'Nesapriyan.k',
-    role: 'Mentor',
+    role: 'Mentorship & Career Guidance',
     expertise: 'Career Guidance',
     image: nesapriyan,
-    bio: 'Dedicated career mentor with extensive experience.'
+    bio: 'Dedicated career mentor with extensive experience.',
+    category: 'Mentorship & Career Guidance'
   },
   {
     id: 'subiksha',
     name: 'Subiksha. S',
-    role: 'Mentor',
+    role: 'Mentorship & Career Guidance',
     expertise: 'Industry Expertise',
     image: subiksha,
-    bio: 'Provides expert advice and personalized coaching.'
+    bio: 'Provides expert advice and personalized coaching.',
+    category: 'Mentorship & Career Guidance'
   },
   {
     id: 'padmaja',
     name: 'Padmaja. P',
-    role: 'Mentor',
-    expertise: 'Leadership',
+    role: 'Research & Student Resources',
+    expertise: 'AI & ML',
     image: padmaja,
-    bio: 'Experienced in nurturing leadership skills.'
+    bio: 'An AI & ML student passionate about helping others overcome career uncertainty through personalized mentorship.',
+    category: 'Research & Student Resources'
   },
   {
     id: 'mujibur',
     name: 'Mujibur Rahman N',
-    role: 'Mentor',
+    role: 'Tech & Innovation',
     expertise: 'AI & ML',
     image: mujibur,
-    bio: 'Born under a rare Mars alignment, exploring the frontiers of AI and space technology.'
+    bio: 'Born under a rare Mars alignment, exploring the frontiers of AI and space technology.',
+    category: 'Tech & Innovation'
   },
   {
-    id: 'guna',
+    id: 'GunaProfile',
     name: 'Guna. R',
-    role: 'Mentor',
-    expertise: 'Marketing',
-    image: 'https://via.placeholder.com/150',
-    bio: 'Expert in marketing and business growth strategies.'
+    role: 'Helpline & Support',
+    expertise: 'AI & ML, Entrepreneurship',
+    image: guna,
+    bio: 'From mechanical engineering to AI & ML, experienced in project development and entrepreneurship. Passionate about helping others transition into tech.',
+    category: 'Helpline & Support'
   },
   {
     id: 'avinash',
     name: 'Avinash. K',
-    role: 'Mentor',
+    role: 'Media & Outreach',
     expertise: 'Product Management',
-    image: 'https://via.placeholder.com/150',
-    bio: 'Guides product development and management.'
+    image: avinash,
+    bio: 'Guides product development and management.',
+    category: 'Media & Outreach'
   },
   {
     id: 'eremiya',
     name: 'Eremiya jero',
-    role: 'Mentor',
+    role: 'Media & Outreach',
     expertise: 'Design',
-    image: 'https://via.placeholder.com/150',
-    bio: 'Creative designer with a knack for innovative solutions.'
+    image: eremiya,
+    bio: 'Creative designer with a knack for innovative solutions.',
+    category: 'Media & Outreach'
   },
   {
     id: 'kiruthika',
     name: 'Kiruthika M',
-    role: 'Mentor',
+    role: 'Research & Student Resources',
     expertise: 'Food Technology',
     image: kiruthika,
-    bio: 'Expert in food technology with aspirations for public service.'
+    bio: 'Expert in food technology with aspirations for public service.',
+    category: 'Research & Student Resources'
   },
   {
     id: 'jayapriya',
     name: 'Jayapriya',
-    role: 'Mentor',
+    role: 'Research & Student Resources',
     expertise: 'Human Resources',
     image: jayapriya,
-    bio: 'Expert in developing engaged and productive teams.'
+    bio: 'Expert in developing engaged and productive teams.',
+    category: 'Research & Student Resources'
   },
   {
     id: 'subashree',
     name: 'Subashree',
-    role: 'Mentor',
+    role: 'Tech & Innovation',
     expertise: 'Finance',
     image: subashree,
-    bio: 'Helps with financial planning and investment strategies.'
+    bio: 'Helps with financial planning and investment strategies.',
+    category: 'Tech & Innovation'
   },
   {
     id: 'joyrechal',
     name: 'Joy Rechal R',
-    role: 'Mentor',
+    role: 'Mentorship & Career Guidance',
     expertise: 'Entrepreneurship',
     image: rachael,
-    bio: 'Supports startups and entrepreneurial ventures.'
+    bio: 'Supports startups and entrepreneurial ventures.',
+    category: 'Mentorship & Career Guidance'
   },
   {
     id: 'hemasree',
-    name: 'Hemashree G',
-    role: 'Mentor',
+    name: 'Hemasree G',
+    role: 'Research & Student Resources',
     expertise: 'Technology',
     image: hemasree,
-    bio: 'Turning challenges into opportunities through determination and perseverance.'
+    bio: 'Turning challenges into opportunities through determination and perseverance.',
+    category: 'Research & Student Resources'
   },
   {
     id: 'shalini',
     name: 'Shalini V',
-    role: 'Mentor',
+    role: 'Media & Outreach',
     expertise: 'Technology',
     image: shalini,
-    bio: 'Discovered her passion in technology through an unexpected journey.'
+    bio: 'Discovered her passion in technology through an unexpected journey.',
+    category: 'Media & Outreach'
   },
   {
     id: 'santosh',
     name: 'Santosh S',
-    role: 'Mentor',
+    role: 'Mentorship & Career Guidance',
     expertise: 'Career Guidance',
     image: santosh,
-    bio: 'First-year BBA student passionate about helping others find their career path.'
+    bio: 'First-year BBA student passionate about helping others find their career path.',
+    category: 'Mentorship & Career Guidance'
   }
 ];
 
 export function Mentors() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedExpertise, setSelectedExpertise] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const navigate = useNavigate();
 
-  const expertiseAreas = ['All', 'Technology', 'Leadership', 'Product', 'Career Development', 'Food Technology'];
+  const categories = [
+    'All',
+    'Mentorship & Career Guidance',
+    'Research & Student Resources',
+    'Tech & Innovation',
+    'Helpline & Support',
+    'Media & Outreach'
+  ];
 
   const filteredMentors = mentors.filter(mentor => {
     const matchesSearch = mentor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          mentor.expertise.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesExpertise = selectedExpertise === 'All' || mentor.expertise.includes(selectedExpertise);
-    return matchesSearch && matchesExpertise;
+    const matchesCategory = selectedCategory === 'All' || mentor.category === selectedCategory;
+    return matchesSearch && matchesCategory;
   });
 
   return (
@@ -159,18 +193,18 @@ export function Mentors() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <div className="flex gap-2">
-            {expertiseAreas.map(area => (
+          <div className="flex flex-wrap gap-2">
+            {categories.map(category => (
               <button
-                key={area}
-                onClick={() => setSelectedExpertise(area)}
-                className={`px-4 py-2 rounded-lg transition-colors ${
-                  selectedExpertise === area
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-4 py-2 rounded-lg transition-colors text-sm whitespace-nowrap ${
+                  selectedCategory === category
                     ? 'bg-emerald-600 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                {area}
+                {category}
               </button>
             ))}
           </div>
@@ -204,7 +238,7 @@ export function Mentors() {
               </div>
               <div className="mt-4 flex justify-between items-center">
                 <button
-                  onClick={() => navigate(`/mentor/${mentor.id}`)}
+                  onClick={() => navigate(`/mentor/${mentor.id.toLowerCase()}`)}
                   className="text-emerald-600 hover:text-emerald-700 transition-colors font-medium"
                 >
                   Know More

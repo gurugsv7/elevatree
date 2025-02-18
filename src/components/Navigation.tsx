@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { TreePine, Menu, X, ArrowRight, LogOut, User } from 'lucide-react';
+import { Menu, X, ArrowRight, LogOut, User } from 'lucide-react';
 import { motion } from 'framer-motion';
+import logo from '../assets/logo.png';
 
 export function Navigation() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -69,8 +70,7 @@ export function Navigation() {
         <div className="flex justify-between h-16">
           <div className="flex">
             <Link to="/" className="flex-shrink-0 flex items-center">
-              <TreePine className="h-8 w-8 text-emerald-600" />
-              <span className="ml-2 text-xl font-bold text-gray-900">ElevaTree</span>
+              <img src={logo} alt="Logo" className="h-48 w-56 -mt-4 -ml-4" />
             </Link>
           </div>
 

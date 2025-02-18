@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, GraduationCap, Calendar, Linkedin, BookOpen, Target, Award, Star, Medal } from 'lucide-react';
+import { MapPin, GraduationCap, Calendar, Linkedin, BookOpen, Target, Award, Star, Medal, CalendarCheck } from 'lucide-react';
 
 export function HemasreeProfile() {
   return (
@@ -9,7 +9,7 @@ export function HemasreeProfile() {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
       >
         <motion.div 
           whileHover={{ scale: 1.03 }}
@@ -51,6 +51,26 @@ export function HemasreeProfile() {
             <h2 className="text-sm uppercase tracking-wider font-semibold text-emerald-600 mb-1">LOCATION</h2>
             <p className="text-lg text-gray-700 font-medium">PONDICHERRY</p>
           </div>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          transition={{ type: "spring", stiffness: 400 }}
+        >
+          <a
+            href="https://www.linkedin.com/in/hemasree-g-51267b274"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="h-full bg-gradient-to-br from-emerald-50 via-white to-emerald-50 rounded-2xl shadow-lg p-8 flex items-center space-x-6 border border-emerald-100/20"
+          >
+            <div className="bg-gradient-to-br from-emerald-100 to-emerald-50 p-4 rounded-xl">
+              <Linkedin className="w-8 h-8 text-emerald-600" strokeWidth={1.5} />
+            </div>
+            <div>
+              <h2 className="text-sm uppercase tracking-wider font-semibold text-emerald-600 mb-1">CONNECT</h2>
+              <p className="text-lg text-gray-700 font-medium">LinkedIn</p>
+            </div>
+          </a>
         </motion.div>
       </motion.div>
 
@@ -129,22 +149,19 @@ challenges. Just like Eleva, my journey is about continuous improvement and help
         </div>
       </motion.div>
 
-      {/* Connect Section */}
-      <motion.div 
+      {/* Book Session Button */}
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
         className="text-center"
       >
-        <a 
-          href="https://www.linkedin.com/in/hemasree-g-51267b274" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="inline-flex items-center space-x-3 text-lg font-medium text-emerald-600 hover:text-emerald-700 transition-colors bg-emerald-50 hover:bg-emerald-100 px-6 py-3 rounded-xl"
+        <button
+          className="inline-flex items-center space-x-3 text-lg font-medium text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-colors px-8 py-4 rounded-xl shadow-lg"
         >
-          <Linkedin className="w-6 h-6" />
-          <span>Connect on LinkedIn</span>
-        </a>
+          <CalendarCheck className="w-6 h-6" />
+          <span>Book a Session</span>
+        </button>
       </motion.div>
     </div>
   );
