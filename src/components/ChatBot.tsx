@@ -131,12 +131,12 @@ export const ChatBot = () => {
   return (
     <div className="fixed right-0 bottom-0 z-[9999] -mb-8 -mr-8 sm:-mb-12 sm:-mr-12">
       {isOpen ? (
-        <div style={{ position: 'absolute', bottom: '80px', right: '20px' }} className="bg-white rounded-2xl shadow-2xl w-[95vw] h-[90vh] flex flex-col overflow-hidden border border-gray-100 sm:w-[600px] sm:h-[600px] sm:right-[100px] sm:bottom-[120px]">
-          <div className="p-6 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-t-2xl flex justify-between items-center">
-            <h3 className="font-semibold text-2xl flex items-center gap-2">
-              <span>Chat Support</span>
-              <span className="w-2 h-2 bg-green-300 rounded-full animate-pulse"></span>
-            </h3>
+        <div style={{ position: 'absolute', bottom: '60px', right: '10px' }} className="bg-white rounded-2xl shadow-2xl w-[85vw] h-[70vh] flex flex-col overflow-hidden border border-gray-100 sm:w-[600px] sm:h-[600px] sm:right-[100px] sm:bottom-[120px]">
+          <div className="p-4 sm:p-6 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-t-2xl flex justify-between items-center">
+           <h3 className="font-semibold text-lg sm:text-2xl flex items-center gap-2">
+             <span>Chat Support</span>
+             <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-300 rounded-full animate-pulse"></span>
+           </h3>
             <button
               onClick={() => setIsOpen(false)}
               className="text-white hover:text-gray-200 text-2xl"
@@ -145,14 +145,14 @@ export const ChatBot = () => {
             </button>
           </div>
 
-          <div className="px-6 py-4 border-b border-gray-100">
-            <p className="text-gray-600 mb-2 text-base font-medium">Quick Questions:</p>
-            <div className="flex flex-wrap gap-2">
-              {quickQuestions.map((q, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleQuickQuestion(q)}
-                  className="px-4 py-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-gray-700 transition-all duration-200 text-sm border border-gray-100 hover:border-green-200 hover:shadow-md"
+          <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-100">
+           <p className="text-gray-600 mb-2 text-sm sm:text-base font-medium">Quick Questions:</p>
+           <div className="flex flex-wrap gap-1.5 sm:gap-2">
+             {quickQuestions.map((q, index) => (
+               <button
+                 key={index}
+                 onClick={() => handleQuickQuestion(q)}
+                 className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-gray-700 transition-all duration-200 text-xs sm:text-sm border border-gray-100 hover:border-green-200 hover:shadow-md"
                 >
                   {q.text}
                 </button>
@@ -169,7 +169,7 @@ export const ChatBot = () => {
                 }`}
               >
                 <div
-                  className={`max-w-[85%] rounded-2xl px-6 py-4 text-lg shadow-sm ${
+                  className={`max-w-[85%] rounded-2xl px-4 sm:px-6 py-2 sm:py-4 text-sm sm:text-lg shadow-sm ${
                     message.sender === 'user'
                       ? 'bg-gradient-to-r from-green-500 to-green-600 text-white'
                       : 'bg-gray-50 text-gray-800 border border-gray-100'
@@ -182,18 +182,18 @@ export const ChatBot = () => {
             <div ref={messagesEndRef} style={{ float: "left", clear: "both" }} />
           </div>
 
-          <form onSubmit={handleSendMessage} className="border-t border-gray-100 p-4 bg-gray-50">
-            <div className="flex gap-4">
+          <form onSubmit={handleSendMessage} className="border-t border-gray-100 p-3 sm:p-4 bg-gray-50">
+            <div className="flex gap-2 sm:gap-4">
               <input
                 type="text"
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="Type your message..."
-                className="flex-1 border border-gray-200 rounded-full px-6 py-4 text-lg focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all duration-200"
+                className="flex-1 border border-gray-200 rounded-full px-4 sm:px-6 py-2 sm:py-4 text-sm sm:text-lg focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all duration-200"
               />
               <button
                 type="submit"
-                className="bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-4 rounded-full hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 text-lg font-medium"
+                className="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 sm:px-8 py-2 sm:py-4 rounded-full hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-lg font-medium"
               >
                 Send →
               </button>

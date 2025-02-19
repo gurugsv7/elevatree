@@ -264,12 +264,44 @@ export function Home() {
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
             >
-              <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c"
-                alt="Team collaboration"
-                className="w-full h-full object-cover rounded-lg shadow-lg"
-                loading="lazy"
-              />
+              <div className="grid grid-cols-3 gap-4">
+                <img
+                  src="/src/assets/avinash.png"
+                  alt="Mentor Avinash"
+                  className="w-full h-48 object-cover rounded-lg shadow-lg"
+                  loading="lazy"
+                />
+                <img
+                  src="/src/assets/kiruthika.png"
+                  alt="Mentor Kiruthika"
+                  className="w-full h-48 object-cover rounded-lg shadow-lg"
+                  loading="lazy"
+                />
+                <img
+                  src="/src/assets/mujibur.png"
+                  alt="Mentor Mujibur"
+                  className="w-full h-48 object-cover rounded-lg shadow-lg"
+                  loading="lazy"
+                />
+                <img
+                  src="/src/assets/nesapriyan.png"
+                  alt="Mentor Nesapriyan"
+                  className="w-full h-48 object-cover rounded-lg shadow-lg"
+                  loading="lazy"
+                />
+                <img
+                  src="/src/assets/shalini.png"
+                  alt="Mentor Shalini"
+                  className="w-full h-48 object-cover rounded-lg shadow-lg"
+                  loading="lazy"
+                />
+                <img
+                  src="/src/assets/subashree.jpg"
+                  alt="Mentor Subashree"
+                  className="w-full h-48 object-cover rounded-lg shadow-lg"
+                  loading="lazy"
+                />
+              </div>
             </motion.div>
             <div className="space-y-6">
               <motion.p 
@@ -385,8 +417,8 @@ export function Home() {
               whileHover={{ scale: 1.05 }}
             >
               <img
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978"
-                alt="Professional team meeting"
+                src="/src/assets/team.jpg"
+                alt="ElevaTree Team"
                 className="rounded-lg shadow-lg object-cover h-96 w-full"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-emerald-600/20 to-transparent rounded-lg"></div>
