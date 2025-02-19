@@ -265,7 +265,7 @@ export function Home() {
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
             >
               <img
-                src="/assets/elevatree team.jpg"
+                src={new URL('../assets/elevatree team.jpg', import.meta.url).href}
                 alt="ElevaTree Mentors"
                 className="w-full h-full object-cover rounded-lg shadow-lg"
                 loading="lazy"
@@ -385,7 +385,7 @@ export function Home() {
               whileHover={{ scale: 1.05 }}
             >
               <img
-                src="/assets/team.jpg"
+                src={new URL('../assets/team.jpg', import.meta.url).href}
                 alt="ElevaTree Team"
                 className="rounded-lg shadow-lg object-cover h-96 w-full"
               />
