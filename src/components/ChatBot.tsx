@@ -34,7 +34,7 @@ export const ChatBot = () => {
    },
    {
      text: 'Who are your mentors?',
-     response: 'We have a diverse team of experienced mentors including:\n- Hemasree: Expert in frontend development and UI/UX\n- Jayapriya: Specializes in backend systems and databases\n- Joy Rechal: Full-stack development expert\n- Nesapriyan: Cloud architecture and DevOps specialist\n- Padmaja: Software testing and quality assurance\n- Shalini: Project management and Agile methodologies\n- Subashree: System design and architecture\nEach mentor brings unique expertise and real-world experience to help guide your career journey.'
+     response: 'We have a dedicated team of student mentors who bring their unique experiences and insights:\n- Hemasree: B.Tech IT student who overcame challenges in mathematics to excel in technology\n- Joy Rechal: B.Tech IT student who successfully transitioned from Biology to Information Technology\n- Nesapriyan: B.Tech AI & ML student balancing tech expertise with musical passion\nEach mentor brings their personal journey of growth and learning to help guide fellow students. Book a session to connect with them!'
    },
    {
      text: 'How does mentoring work?',
@@ -87,21 +87,13 @@ export const ChatBot = () => {
 
     // Mentor related queries
     if (lowerInput.includes('hemasree')) {
-      return 'Hemasree is our frontend development expert specializing in creating intuitive and responsive user interfaces. She has extensive experience in React, Vue.js, and modern UI/UX practices.';
-    } else if (lowerInput.includes('jayapriya')) {
-      return 'Jayapriya is our backend development specialist with expertise in database design, API development, and system optimization. She excels in Node.js, Python, and SQL/NoSQL databases.';
+      return 'Hemasree is pursuing B.Tech in Information Technology. She transformed from being an average student who struggled with mathematics to becoming proficient in technology. Her journey of overcoming academic challenges and building confidence makes her an inspiring mentor for students facing similar struggles.';
     } else if (lowerInput.includes('joy') || lowerInput.includes('rechal')) {
-      return 'Joy Rechal is our full-stack development expert who brings comprehensive knowledge in both frontend and backend technologies. She specializes in end-to-end application development and modern web frameworks.';
+      return 'Joy Rechal has a unique journey from Biology to Information Technology. Despite being an average student, she cleared NEET on her first attempt through self-study. Her experience of adapting to a completely new field and succeeding makes her an excellent mentor for students navigating career transitions.';
     } else if (lowerInput.includes('nesapriyan')) {
-      return 'Nesapriyan is our cloud and DevOps specialist focusing on AWS, Azure, and containerization technologies. He helps teams implement efficient CI/CD pipelines and cloud infrastructure.';
-    } else if (lowerInput.includes('padmaja')) {
-      return 'Padmaja is our quality assurance expert specializing in automated testing, test strategy development, and quality process improvement. She ensures robust and reliable software delivery.';
-    } else if (lowerInput.includes('shalini')) {
-      return 'Shalini is our project management expert with deep knowledge of Agile methodologies. She helps teams improve their development processes and delivery efficiency.';
-    } else if (lowerInput.includes('subashree')) {
-      return 'Subashree specializes in system architecture and design patterns. She helps teams design scalable and maintainable software solutions using best practices and modern architectures.';
+      return 'Nesapriyan is pursuing B.Tech in AI & Machine Learning. After facing personal challenges and career uncertainty, he found his path in technology while maintaining his passion for music. His story of balancing technical education with creative pursuits inspires students to embrace their diverse interests while pursuing their career goals.';
     } else if (lowerInput.includes('mentor')) {
-      return 'Our mentors are industry experts with extensive experience in their fields. They provide personalized guidance, career advice, and technical expertise. Would you like to know about a specific mentor or see all our mentors?';
+      return 'ElevaTree offers a unique student-driven mentorship program where successful students share their experiences and insights to help guide others. Our mentors understand the challenges of academic and career transitions firsthand because they\'ve recently been through similar experiences. Would you like to know about a specific mentor or learn more about our mentorship approach?';
     }
 
     // Learning and resources
@@ -129,9 +121,9 @@ export const ChatBot = () => {
   };
 
   return (
-    <div className="fixed right-0 bottom-0 z-[9999] -mb-8 -mr-8 sm:-mb-12 sm:-mr-12">
+    <div className="fixed right-0 bottom-0 z-[9999] -mb-8 -mr-4 sm:-mb-12 sm:-mr-12">
       {isOpen ? (
-        <div style={{ position: 'absolute', bottom: '60px', right: '10px' }} className="bg-white rounded-2xl shadow-2xl w-[85vw] h-[70vh] flex flex-col overflow-hidden border border-gray-100 sm:w-[600px] sm:h-[600px] sm:right-[100px] sm:bottom-[120px]">
+        <div style={{ position: 'absolute', bottom: '60px', right: '20px' }} className="bg-white rounded-2xl shadow-2xl w-[85vw] h-[70vh] flex flex-col overflow-hidden border border-gray-100 sm:w-[600px] sm:h-[600px] sm:right-[100px] sm:bottom-[120px]">
           <div className="p-4 sm:p-6 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-t-2xl flex justify-between items-center">
            <h3 className="font-semibold text-lg sm:text-2xl flex items-center gap-2">
              <span>Chat Support</span>
@@ -202,7 +194,7 @@ export const ChatBot = () => {
         </div>
       ) : (
         <div className="relative">
-          <div className="absolute bottom-[140px] right-[120px] sm:bottom-[240px] sm:right-[190px] bg-gradient-to-br from-green-500 to-green-600 rounded-2xl shadow-2xl p-4 sm:p-6 w-60 sm:w-72">
+          <div className="absolute bottom-[140px] right-[100px] sm:bottom-[240px] sm:right-[190px] bg-gradient-to-br from-green-500 to-green-600 rounded-2xl shadow-2xl p-4 sm:p-6 w-60 sm:w-72">
             <div className="text-white text-base sm:text-lg font-medium">Hi! I'm ElevaBot. How may I help you? 👋</div>
             <div className="absolute -bottom-2 right-6 sm:right-8 w-3 sm:w-4 h-3 sm:h-4 bg-green-600 transform rotate-45 shadow-lg"></div>
           </div>
