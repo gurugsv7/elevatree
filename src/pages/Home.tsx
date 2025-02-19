@@ -304,96 +304,114 @@ export function Home() {
       </motion.section>
 
       {/* Our Mission Section */}
-      <motion.section
-        ref={missionRef}
-        initial="hidden"
-        animate={missionInView ? "visible" : "hidden"}
-        variants={sectionVariants}
-        className="py-16 bg-gradient-to-tr from-teal-100 via-emerald-50 to-teal-100"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <motion.h2 
-              variants={itemVariants}
-              className="text-3xl font-extrabold text-gray-900 sm:text-4xl"
-            >
-              Our Mission
-            </motion.h2>
-            <motion.p 
-              variants={itemVariants}
-              className="mt-4 text-lg text-gray-600"
-            >
-              Empowering careers, transforming futures
-            </motion.p>
-          </div>
-          <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
-              <motion.p 
-                variants={itemVariants}
-                className="text-xl text-gray-600 leading-relaxed"
-              >
-                To empower professionals through personalized mentorship, expert guidance, and comprehensive resources, fostering career growth and professional excellence in an ever-evolving job market.
-              </motion.p>
-              <div className="space-y-6">
-                <motion.div 
-                  variants={itemVariants}
-                  className="flex items-start space-x-4"
-                >
-                  <div className="flex-shrink-0">
-                    <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center">
-                      <span className="text-emerald-600 font-semibold">1</span>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Accessible Mentorship</h3>
-                    <p className="mt-2 text-gray-600">Making expert guidance available to professionals at every career stage</p>
-                  </div>
-                </motion.div>
-                <motion.div 
-                  variants={itemVariants}
-                  className="flex items-start space-x-4"
-                >
-                  <div className="flex-shrink-0">
-                    <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center">
-                      <span className="text-emerald-600 font-semibold">2</span>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Continuous Growth</h3>
-                    <p className="mt-2 text-gray-600">Supporting lifelong learning and skill development</p>
-                  </div>
-                </motion.div>
-                <motion.div 
-                  variants={itemVariants}
-                  className="flex items-start space-x-4"
-                >
-                  <div className="flex-shrink-0">
-                    <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center">
-                      <span className="text-emerald-600 font-semibold">3</span>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Career Excellence</h3>
-                    <p className="mt-2 text-gray-600">Fostering professional success through targeted guidance and resources</p>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-            <motion.div 
-              variants={itemVariants}
-              className="relative"
-              whileHover={{ scale: 1.05 }}
-            >
-              <img
-                src={new URL('../assets/team.jpg', import.meta.url).href}
-                alt="ElevaTree Team"
-                className="rounded-lg shadow-lg object-cover h-96 w-full"
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-emerald-600/20 to-transparent rounded-lg"></div>
-            </motion.div>
-          </div>
-        </div>
-      </motion.section>
+     <motion.section
+       ref={missionRef}
+       initial="hidden"
+       animate={missionInView ? "visible" : "hidden"}
+       variants={sectionVariants}
+       className="py-16 bg-gradient-to-tr from-teal-100 via-emerald-50 to-teal-100"
+     >
+       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+         <div className="text-center">
+           <motion.h2
+             variants={itemVariants}
+             className="text-3xl font-extrabold text-gray-900 sm:text-4xl"
+             whileHover={{ scale: 1.05 }}
+             transition={{ type: "spring", stiffness: 300 }}
+           >
+             Our Mission
+           </motion.h2>
+           <motion.p
+             variants={itemVariants}
+             className="mt-4 text-lg text-gray-600"
+             whileHover={{ scale: 1.05 }}
+             transition={{ type: "spring", stiffness: 300 }}
+           >
+             Empowering careers, transforming futures
+           </motion.p>
+         </div>
+         <div className="mt-16 max-w-4xl mx-auto">
+           <motion.div
+             variants={itemVariants}
+             className="text-center mb-12"
+           >
+             <motion.p
+               className="text-2xl text-gray-800 leading-relaxed font-medium"
+               initial={{ opacity: 0, y: 20 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ duration: 0.8 }}
+               whileHover={{ scale: 1.02 }}
+             >
+               To empower professionals through personalized mentorship, expert guidance, and comprehensive resources, fostering career growth and professional excellence in an ever-evolving job market.
+             </motion.p>
+           </motion.div>
+           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+             <motion.div
+               variants={itemVariants}
+               className="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+               whileHover={{
+                 scale: 1.05,
+                 backgroundColor: "rgba(167, 243, 208, 0.1)" // emerald-100 with opacity
+               }}
+             >
+               <div className="text-center mb-4">
+                 <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center mx-auto transform hover:rotate-12 transition-transform duration-300">
+                   <span className="text-emerald-600 font-bold text-xl">1</span>
+                 </div>
+               </div>
+               <h3 className="text-xl font-semibold text-gray-900 text-center mb-3">
+                 Accessible Mentorship
+               </h3>
+               <p className="text-gray-600 text-center">
+                 Making expert guidance available to professionals at every career stage
+               </p>
+             </motion.div>
+
+             <motion.div
+               variants={itemVariants}
+               className="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+               whileHover={{
+                 scale: 1.05,
+                 backgroundColor: "rgba(167, 243, 208, 0.1)"
+               }}
+             >
+               <div className="text-center mb-4">
+                 <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center mx-auto transform hover:rotate-12 transition-transform duration-300">
+                   <span className="text-emerald-600 font-bold text-xl">2</span>
+                 </div>
+               </div>
+               <h3 className="text-xl font-semibold text-gray-900 text-center mb-3">
+                 Continuous Growth
+               </h3>
+               <p className="text-gray-600 text-center">
+                 Supporting lifelong learning and skill development
+               </p>
+             </motion.div>
+
+             <motion.div
+               variants={itemVariants}
+               className="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+               whileHover={{
+                 scale: 1.05,
+                 backgroundColor: "rgba(167, 243, 208, 0.1)"
+               }}
+             >
+               <div className="text-center mb-4">
+                 <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center mx-auto transform hover:rotate-12 transition-transform duration-300">
+                   <span className="text-emerald-600 font-bold text-xl">3</span>
+                 </div>
+               </div>
+               <h3 className="text-xl font-semibold text-gray-900 text-center mb-3">
+                 Career Excellence
+               </h3>
+               <p className="text-gray-600 text-center">
+                 Fostering professional success through targeted guidance and resources
+               </p>
+             </motion.div>
+           </div>
+         </div>
+       </div>
+     </motion.section>
 
       {/* Career Guidance Services Section */}
       <motion.section
