@@ -46,7 +46,7 @@ const mentorDetails: Record<string, MentorDetail> = {
     name: 'JAYAPRIYA R',
     Component: JayapriyaProfile,
     quote: {
-      text: "hi.",
+      text: "When you come to the end of your rope, tie a knot and hang on.",
       author: "Franklin D. Roosevelt"
     }
   },

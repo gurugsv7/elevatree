@@ -88,7 +88,7 @@ export function JayapriyaProfile() {
           </h3>
           <div className="space-y-8 text-gray-700">
             <blockquote className="text-2xl font-medium text-emerald-700 border-l-4 border-emerald-500 pl-6 py-2">
-              "hi."
+              "When you come to the end of your rope, tie a knot and hang on."
               <footer className="text-lg text-emerald-600 mt-2">- Franklin D. Roosevelt</footer>
             </blockquote>
             <div className="text-xl leading-relaxed">
