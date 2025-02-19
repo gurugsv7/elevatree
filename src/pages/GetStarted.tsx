@@ -6,6 +6,7 @@ import {
   GraduationCap, Globe, BrainCircuit, PiggyBank, 
   Compass, School, Rocket
 } from 'lucide-react';
+import { FORM_LINKS } from '../constants/links';
 
 export function GetStarted() {
   const containerVariants = {
@@ -168,13 +169,15 @@ export function GetStarted() {
             ensuring they make informed decisions about their future. Our goal is to provide guidance, 
             mentorship, and resources to help them succeed.
           </p>
-          <Link
-            to="/register"
+          <a
+            href={FORM_LINKS.registration}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 transition-colors shadow-lg hover:shadow-xl"
           >
             Start Your Journey
             <ArrowRight className="ml-2 h-6 w-6" />
-          </Link>
+          </a>
         </motion.div>
       </section>
     </motion.div>

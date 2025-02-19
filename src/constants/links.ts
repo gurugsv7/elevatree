@@ -6,3 +6,8 @@ export const CONTACT_INFO = {
   email: "elevatree@gmail.com",
   phone: "+91 9080798267"
 };
+
+// Form Links
+export const FORM_LINKS = {
+  registration: "https://docs.google.com/forms/d/e/1FAIpQLSetcZjdbnQTMm3gn3zsCbznMAhu93_5QWohlY9t3uS0zVj_Xg/viewform?usp=dialog"
+};
