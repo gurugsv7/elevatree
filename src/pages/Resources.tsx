@@ -28,17 +28,22 @@ export function Resources() {
       title: "Our Journey: The Story of Elevatree",
       shortDesc: "From Vision to Reality: The Birth of a Career Guidance Platform",
       description: "Discover how a group of 15-16 passionate students came together to create Elevatree, their experiences, challenges, and the mission to guide students towards their dreams while nurturing their skills and mental well-being.",
-      path: "/resources/elevatree-journey.pdf",
+      fileName: "elevatree-journey.pdf",
       icon: BookOpen
     },
     {
       title: "Career Pathways Guide: STEM and Beyond",
       shortDesc: "Comprehensive Career Guide for Modern Professionals",
       description: "A detailed exploration of career opportunities across Engineering, Medicine, Teaching, Government Services, Arts & Design, and Legal Services. Find your path with our comprehensive career guide.",
-      path: "/resources/career-pathways-guide.pdf",
+      fileName: "career-pathways-guide.pdf",
       icon: FileText
     }
   ];
+
+  // Helper function to get the correct path for resources
+  const getResourcePath = (fileName: string) => {
+    return `${import.meta.env.BASE_URL}resources/${fileName}`;
+  };
 
   return (
     <motion.div
@@ -109,7 +114,7 @@ export function Resources() {
                   </p>
 
                   <motion.a
-                    href={resource.path}
+                    href={getResourcePath(resource.fileName)}
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.05 }}

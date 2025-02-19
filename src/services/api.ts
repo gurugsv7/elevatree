@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:5000';
+// Since there's no backend currently, we'll set this to an empty string
+const baseURL = '';
 
 const api = axios.create({
   baseURL,
@@ -8,7 +9,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
     'Accept': 'application/json'
   },
-  withCredentials: false // Change this to false for now
+  withCredentials: false
 });
 
 // Add request logging

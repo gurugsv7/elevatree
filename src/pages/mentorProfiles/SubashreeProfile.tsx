@@ -161,12 +161,15 @@ export function SubashreeProfile() {
         transition={{ delay: 0.5 }}
         className="text-center"
       >
-        <button
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSetcZjdbnQTMm3gn3zsCbznMAhu93_5QWohlY9t3uS0zVj_Xg/viewform?usp=dialog"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center space-x-3 text-lg font-medium text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-colors px-8 py-4 rounded-xl shadow-lg"
         >
           <CalendarCheck className="w-6 h-6" />
           <span>Book a Session</span>
-        </button>
+        </a>
       </motion.div>
     </div>
   );

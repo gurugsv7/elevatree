@@ -11,3 +11,4 @@ export { SantoshProfile } from './SantoshProfile';
 export { MujiburProfile } from './MujiburProfile';
 export { SubikshaProfile } from './SubikshaProfile';
 export { AvinashProfile } from './AvinashProfile';
+export { EremiyaProfile } from './EremiyaProfile';
