@@ -129,9 +129,9 @@ export const ChatBot = () => {
   };
 
   return (
-    <div className="fixed right-0 bottom-0 z-[9999] -mb-12 -mr-12">
+    <div className="fixed right-0 bottom-0 z-[9999] -mb-8 -mr-8 sm:-mb-12 sm:-mr-12">
       {isOpen ? (
-        <div style={{ position: 'absolute', bottom: '120px', right: '100px' }} className="bg-white rounded-2xl shadow-2xl w-[600px] h-[600px] flex flex-col overflow-hidden border border-gray-100">
+        <div style={{ position: 'absolute', bottom: '80px', right: '20px' }} className="bg-white rounded-2xl shadow-2xl w-[95vw] h-[90vh] flex flex-col overflow-hidden border border-gray-100 sm:w-[600px] sm:h-[600px] sm:right-[100px] sm:bottom-[120px]">
           <div className="p-6 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-t-2xl flex justify-between items-center">
             <h3 className="font-semibold text-2xl flex items-center gap-2">
               <span>Chat Support</span>
@@ -202,13 +202,13 @@ export const ChatBot = () => {
         </div>
       ) : (
         <div className="relative">
-          <div className="absolute bottom-[240px] right-[190px] bg-gradient-to-br from-green-500 to-green-600 rounded-2xl shadow-2xl p-6 w-72">
-            <div className="text-white text-lg font-medium">Hi! I'm ElevaBot. How may I help you? 👋</div>
-            <div className="absolute -bottom-2 right-8 w-4 h-4 bg-green-600 transform rotate-45 shadow-lg"></div>
+          <div className="absolute bottom-[140px] right-[120px] sm:bottom-[240px] sm:right-[190px] bg-gradient-to-br from-green-500 to-green-600 rounded-2xl shadow-2xl p-4 sm:p-6 w-60 sm:w-72">
+            <div className="text-white text-base sm:text-lg font-medium">Hi! I'm ElevaBot. How may I help you? 👋</div>
+            <div className="absolute -bottom-2 right-6 sm:right-8 w-3 sm:w-4 h-3 sm:h-4 bg-green-600 transform rotate-45 shadow-lg"></div>
           </div>
           <button
             onClick={() => setIsOpen(true)}
-            className="absolute bottom-0 right-0 w-80 h-80 hover:opacity-90 transition-opacity bg-transparent p-0 border-0 outline-none focus:outline-none"
+            className="absolute bottom-0 right-0 w-52 h-52 sm:w-80 sm:h-80 hover:opacity-90 transition-opacity bg-transparent p-0 border-0 outline-none focus:outline-none"
           >
             <img
               src={chatbotIcon}
