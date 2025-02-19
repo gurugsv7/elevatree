@@ -35,7 +35,7 @@ const mentors: Mentor[] = [
     name: 'GSV',
     role: 'Classified',
     expertise: '[REDACTED]',
-    image: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20width%3D%22100%22%20height%3D%22100%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23000%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2250%22%20font-size%3D%2220%22%20text-anchor%3D%22middle%22%20alignment-baseline%3D%22middle%22%20fill%3D%22%2300ff00%22%3EGSV%3C%2Ftext%3E%3C%2Fsvg%3E',
+    image: 'https://media.licdn.com/dms/image/v2/D5603AQGE-6_gGOgQWQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1729081993088?e=1745452800&v=beta&t=g8BWUbi7OHSr-Bd28XR4Ex21LDfpTopxbOyiFuRzeCs',
     bio: '[CLASSIFIED INFORMATION]',
     category: 'Classified',
     isHidden: true
