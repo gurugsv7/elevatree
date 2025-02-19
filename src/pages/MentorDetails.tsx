@@ -5,7 +5,7 @@ import {
   JayapriyaProfile, JoyRechalProfile, HemasreeProfile, 
   ShaliniProfile, KiruthikaProfile, SantoshProfile, 
   MujiburProfile, SubikshaProfile, AvinashProfile,
-  GunaProfile 
+  GunaProfile, GSVProfile
 } from './mentorProfiles';
 
 interface MentorDetail {
@@ -15,9 +15,19 @@ interface MentorDetail {
     text: string;
     author: string;
   };
+  isHidden?: boolean;
 }
 
 const mentorDetails: Record<string, MentorDetail> = {
+  'gsv': {
+    name: '[CLASSIFIED]',
+    Component: GSVProfile,
+    quote: {
+      text: "In the depths of code, secrets lie dormant, waiting to be discovered by those who dare to search.",
+      author: "GSV"
+    },
+    isHidden: true
+  },
   'nesapriyan': {
     name: 'NESAPRIYAN.K',
     Component: NesapriyanProfile,
@@ -152,21 +162,35 @@ export function MentorDetails() {
       className="flex flex-col min-h-screen"
     >
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-emerald-600 to-teal-600 py-24 overflow-hidden">
+      <section className={`relative ${
+        mentor.isHidden 
+          ? 'bg-black'
+          : 'bg-gradient-to-r from-emerald-600 to-teal-600'
+      } py-24 overflow-hidden`}>
         <motion.div
           animate={{ rotate: [0, 360] }}
           transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-          className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full -mr-48 -mt-48"
+          className={`absolute top-0 right-0 w-96 h-96 ${
+            mentor.isHidden
+              ? 'bg-green-500'
+              : 'bg-white'
+          } opacity-5 rounded-full -mr-48 -mt-48`}
         />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
           <button
             onClick={() => navigate('/mentors')}
-            className="mb-8 text-emerald-100 hover:text-white flex items-center justify-center"
+            className={`mb-8 ${
+              mentor.isHidden
+                ? 'text-green-400 hover:text-green-300'
+                : 'text-emerald-100 hover:text-white'
+            } flex items-center justify-center`}
           >
             <span>← Back to Mentors</span>
           </button>
-          <h1 className="text-5xl font-bold text-white mb-8">
+          <h1 className={`text-5xl font-bold ${
+            mentor.isHidden ? 'text-green-400' : 'text-white'
+          } mb-8`}>
             {mentor.name}
           </h1>
           <motion.div
@@ -175,22 +199,30 @@ export function MentorDetails() {
             transition={{ delay: 0.2 }}
             className="max-w-3xl mx-auto"
           >
-            <blockquote className="text-2xl italic text-emerald-100 mb-4">
+            <blockquote className={`text-2xl italic ${
+              mentor.isHidden ? 'text-green-400' : 'text-emerald-100'
+            } mb-4`}>
               "{mentor.quote.text}"
             </blockquote>
-            <p className="text-emerald-200">- {mentor.quote.author}</p>
+            <p className={mentor.isHidden ? 'text-green-500' : 'text-emerald-200'}>
+              - {mentor.quote.author}
+            </p>
           </motion.div>
         </div>
 
         <motion.div
           animate={{ rotate: [0, -360] }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-0 left-0 w-72 h-72 bg-white opacity-5 rounded-full -ml-36 -mb-36"
+          className={`absolute bottom-0 left-0 w-72 h-72 ${
+            mentor.isHidden
+              ? 'bg-green-500'
+              : 'bg-white'
+          } opacity-5 rounded-full -ml-36 -mb-36`}
         />
       </section>
 
       {/* Profile Content Section */}
-      <div className="flex-grow bg-gradient-to-b from-emerald-50 via-white to-emerald-50">
+      <div className={mentor.isHidden ? 'bg-black' : 'bg-gradient-to-b from-emerald-50 via-white to-emerald-50'}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

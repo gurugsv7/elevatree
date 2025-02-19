@@ -26,9 +26,20 @@ interface Mentor {
   image: string;
   bio: string;
   category: string;
+  isHidden?: boolean;
 }
 
 const mentors: Mentor[] = [
+  {
+    id: 'gsv',
+    name: 'GSV',
+    role: 'Classified',
+    expertise: '[REDACTED]',
+    image: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20width%3D%22100%22%20height%3D%22100%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23000%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2250%22%20font-size%3D%2220%22%20text-anchor%3D%22middle%22%20alignment-baseline%3D%22middle%22%20fill%3D%22%2300ff00%22%3EGSV%3C%2Ftext%3E%3C%2Fsvg%3E',
+    bio: '[CLASSIFIED INFORMATION]',
+    category: 'Classified',
+    isHidden: true
+  },
   {
     id: 'nesapriyan',
     name: 'Nesapriyan.k',
@@ -172,6 +183,11 @@ export function Mentors() {
   ];
 
   const filteredMentors = mentors.filter(mentor => {
+    // Special case for GSV - only show when exactly "GSV" is searched
+    if (mentor.isHidden) {
+      return searchTerm.trim().toUpperCase() === 'GSV';
+    }
+
     const matchesSearch = mentor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          mentor.expertise.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || mentor.category === selectedCategory;
@@ -218,7 +234,9 @@ export function Mentors() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6"
+              className={`bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 ${
+                mentor.isHidden ? 'bg-black text-green-400' : ''
+              }`}
             >
               <div className="flex items-start gap-4">
                 <div className={`relative ${mentor.name === 'Jayapriya' ? 'mt-4 -ml-2' : ''}`}>
@@ -229,17 +247,27 @@ export function Mentors() {
                   />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold">{mentor.name}</h3>
-                  <p className="text-emerald-600">{mentor.role}</p>
+                  <h3 className={`text-xl font-semibold ${mentor.isHidden ? 'text-green-400' : ''}`}>
+                    {mentor.name}
+                  </h3>
+                  <p className={mentor.isHidden ? 'text-green-600' : 'text-emerald-600'}>
+                    {mentor.role}
+                  </p>
                 </div>
               </div>
               <div className="mt-4">
-                <p className="text-gray-600 mb-4">{mentor.bio}</p>
+                <p className={`mb-4 ${mentor.isHidden ? 'text-green-400' : 'text-gray-600'}`}>
+                  {mentor.bio}
+                </p>
               </div>
               <div className="mt-4 flex justify-between items-center">
                 <button
                   onClick={() => navigate(`/mentor/${mentor.id.toLowerCase()}`)}
-                  className="text-emerald-600 hover:text-emerald-700 transition-colors font-medium"
+                  className={`${
+                    mentor.isHidden 
+                      ? 'text-green-400 hover:text-green-300' 
+                      : 'text-emerald-600 hover:text-emerald-700'
+                  } transition-colors font-medium`}
                 >
                   Know More
                 </button>
@@ -247,7 +275,11 @@ export function Mentors() {
                   href="https://docs.google.com/forms/d/e/1FAIpQLSetcZjdbnQTMm3gn3zsCbznMAhu93_5QWohlY9t3uS0zVj_Xg/viewform?usp=dialog"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
+                  className={`${
+                    mentor.isHidden
+                      ? 'bg-green-600 hover:bg-green-700'
+                      : 'bg-emerald-600 hover:bg-emerald-700'
+                  } text-white px-6 py-2 rounded-lg transition-colors`}
                 >
                   Book Session
                 </a>
