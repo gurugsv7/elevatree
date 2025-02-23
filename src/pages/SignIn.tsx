@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { TreePine, Mail, Lock, ArrowRight, User } from 'lucide-react';
 import { motion } from 'framer-motion';
-
-import axios from 'axios'; // Add this import
-import { auth } from '../api';
+import { TreePine, Mail, Lock, ArrowRight, User } from 'lucide-react';
+import * as authService from '../services/auth';
 
 export function SignIn() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    fullName: '',  // Add this field
+    fullName: '',
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -23,33 +21,37 @@ export function SignIn() {
     setIsLoading(true);
 
     try {
-      const endpoint = isLogin ? '/login' : '/register';
-      const url = `http://127.0.0.1:5000/api${endpoint}`;
-      const payload = isLogin ? {
-        email: formData.email,
-        password: formData.password
-      } : formData;
-
-      const response = await axios.post(url, payload, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      const data = response.data;
-
-      if (response.status === 200) {
-        // Store the token and navigate
-        localStorage.setItem('token', data.token);
-        // Dispatch storage event for other components
-        window.dispatchEvent(new Event('storage'));
-        navigate('/'); // Changed from '/dashboard' to '/'
+      if (isLogin) {
+        await authService.login(formData.email, formData.password);
+        navigate('/');
       } else {
-        throw new Error(data.error || data.message || `Failed to ${isLogin ? 'sign in' : 'sign up'}`);
+        if (!formData.fullName) {
+          throw new Error('Full name is required for registration');
+        }
+        await authService.register(formData.email, formData.password, formData.fullName);
+        // Redirect to profile page after registration to complete profile
+        navigate('/profile');
       }
-
-    } catch (err) {
+    } catch (err: any) {
       console.error('Auth error:', err);
-      setError(err instanceof Error ? err.message : 'Server error - please try again later');
+      setError(err.message || 'Authentication failed - please try again');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    setError('');
+    setIsLoading(true);
+    try {
+      await authService.signInWithGoogle();
+      // For Google sign-in, check if profile exists
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const hasProfile = localStorage.getItem(`profile_${user.uid}`);
+      navigate(hasProfile ? '/' : '/profile');
+    } catch (err: any) {
+      console.error('Google sign-in error:', err);
+      setError(err.message || 'Google sign-in failed - please try again');
     } finally {
       setIsLoading(false);
     }
@@ -221,7 +223,7 @@ export function SignIn() {
                   className="w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? (
-                    'Signing in...'
+                    'Processing...'
                   ) : (
                     <>
                       {isLogin ? 'Sign in' : 'Sign up'}
@@ -242,21 +244,16 @@ export function SignIn() {
                 </div>
               </div>
 
-              <div className="mt-6 grid grid-cols-2 gap-3">
+              <div className="mt-6 grid grid-cols-1 gap-3">
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                  onClick={handleGoogleSignIn}
+                  disabled={isLoading}
+                  className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <img className="h-5 w-5" src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google logo" />
-                </motion.button>
-
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-                >
-                  <img className="h-5 w-5" src="https://www.svgrepo.com/show/448234/linkedin.svg" alt="LinkedIn logo" />
+                  <img className="h-5 w-5 mr-2" src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google logo" />
+                  Sign in with Google
                 </motion.button>
               </div>
             </div>

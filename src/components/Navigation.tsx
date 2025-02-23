@@ -2,45 +2,45 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ArrowRight, LogOut, User } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../config/firebase';
+import * as authService from '../services/auth';
 import logo from '../assets/logo.png';
 
 export function Navigation() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [user, setUser] = React.useState<any>(null);
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    const checkAuth = () => {
-      const token = localStorage.getItem('token');
-      setIsLoggedIn(!!token);
-    };
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setIsLoggedIn(!!currentUser);
+      setUser(currentUser);
+    });
 
-    // Check on mount
-    checkAuth();
-
-    // Add event listener for storage changes
-    window.addEventListener('storage', checkAuth);
-
-    return () => {
-      window.removeEventListener('storage', checkAuth);
-    };
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setIsLoggedIn(false);
-    navigate('/');
+  const handleLogout = async () => {
+    try {
+      await authService.logout();
+      navigate('/signin');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
   };
 
   const AuthButtons = () => (
     isLoggedIn ? (
       <div className="flex space-x-4 items-center">
         <Link
-          to="/profile" // or your profile route
+          to="/profile"
           className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium flex items-center"
         >
           <User className="h-5 w-5 mr-1" />
-          My Profile
+          {user?.displayName || 'My Profile'}
         </Link>
         <button
           onClick={handleLogout}
@@ -136,10 +136,10 @@ export function Navigation() {
             {isLoggedIn ? (
               <>
                 <Link
-                  to="/profile" // or your profile route
+                  to="/profile"
                   className="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                 >
-                  My Profile
+                  {user?.displayName || 'My Profile'}
                 </Link>
                 <button
                   onClick={handleLogout}

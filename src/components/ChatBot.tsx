@@ -1,14 +1,17 @@
 import { useState, useRef, useEffect } from 'react';
 import chatbotIcon from '../assets/chatbot bg.png';
+import { getGeminiResponse } from '../services/gemini';
+import { getMentorInfo, getContextualResponse, websitePages, buildMentorPrompt, mentorsInfo } from '../services/mentors';
 
 interface Message {
   text: string;
   sender: 'user' | 'bot';
+  reference?: string;
 }
 
 interface QuickQuestion {
   text: string;
-  response: string;
+  prompt: string;
 }
 
 export const ChatBot = () => {
@@ -17,6 +20,7 @@ export const ChatBot = () => {
     { text: 'Hi! How can I help you today?', sender: 'bot' }
   ]);
   const [inputText, setInputText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -30,94 +34,117 @@ export const ChatBot = () => {
   const quickQuestions: QuickQuestion[] = [
    {
      text: 'Tell me about ElevaTree',
-     response: 'ElevaTree is your premier career growth platform that connects aspiring professionals with experienced mentors. We provide personalized guidance, skill development resources, and a supportive community to help you reach your career goals.'
+     prompt: 'Describe what ElevaTree is, its mission, and how it helps students in their career growth'
    },
    {
      text: 'Who are your mentors?',
-     response: 'We have a dedicated team of student mentors who bring their unique experiences and insights:\n- Hemasree: B.Tech IT student who overcame challenges in mathematics to excel in technology\n- Joy Rechal: B.Tech IT student who successfully transitioned from Biology to Information Technology\n- Nesapriyan: B.Tech AI & ML student balancing tech expertise with musical passion\nEach mentor brings their personal journey of growth and learning to help guide fellow students. Book a session to connect with them!'
+     prompt: 'Who are the mentors at ElevaTree and what makes them unique in helping students?'
    },
    {
      text: 'How does mentoring work?',
-     response: 'Our mentoring process is simple and effective:\n1. Browse mentor profiles and choose one that matches your goals\n2. Schedule a free initial consultation\n3. Develop a personalized growth plan\n4. Regular one-on-one sessions\n5. Access to additional resources and workshops\nWe focus on practical guidance and real-world experience to help you succeed.'
+     prompt: 'Explain the mentoring process at ElevaTree and how students can benefit from it'
    },
    {
      text: 'What resources are available?',
-     response: 'We offer comprehensive resources including:\n- Career development workshops\n- Technical skill training sessions\n- Industry-specific webinars\n- Project-based learning materials\n- Resume and interview preparation\n- Networking opportunities\n- Online learning platform access\nVisit our Resources page to explore more!'
+     prompt: 'Detail the learning resources, materials, and support available at ElevaTree'
    }
- ];
+  ];
 
-  const handleSendMessage = (e: React.FormEvent) => {
+  const buildPromptWithContext = (input: string) => {
+    const lowerInput = input.toLowerCase();
+    
+    // Check for mentor-specific questions
+    const mentorNames = Object.keys(mentorsInfo);
+    const mentionedMentor = mentorNames.find(name => lowerInput.includes(name));
+    
+    if (mentionedMentor) {
+      const mentorInfo = getMentorInfo(mentionedMentor);
+      if (mentorInfo) {
+        return buildMentorPrompt(mentorInfo, input);
+      }
+    }
+
+    // Check for specific topics that need website references
+    const contextualResponse = getContextualResponse(lowerInput);
+    if (contextualResponse.text) {
+      return `As ElevaBot, provide information about ElevaTree's ${lowerInput}. Include these details: "${contextualResponse.text}". Add this reference: "For more details, visit ${contextualResponse.reference}"`;
+    }
+
+    // Default context
+    return `You are ElevaBot, a helpful assistant for ElevaTree - a career growth platform that connects aspiring professionals with experienced mentors. 
+    
+    Guidelines for your response:
+    1. Be clear and conversational
+    2. Focus on ElevaTree's services, mentors, and resources
+    3. If the topic is unrelated to career guidance or education, politely redirect to relevant career topics
+    4. Keep responses concise but informative
+    5. Include relevant website references when appropriate
+    
+    Address this query: ${input}`;
+  };
+
+  const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputText.trim()) return;
 
     const userMessage: Message = { text: inputText, sender: 'user' };
     setMessages(prev => [...prev, userMessage]);
+    setInputText('');
+    setIsLoading(true);
 
-    setTimeout(() => {
+    try {
+      const prompt = buildPromptWithContext(inputText);
+      const response = await getGeminiResponse(prompt);
+      
+      // Extract reference if present in the response
+      const referenceMatch = response.match(/For more details, visit (\/[a-zA-Z-]+)/);
+      const reference = referenceMatch ? referenceMatch[1] : undefined;
+      
       const botResponse: Message = {
-        text: getBotResponse(inputText),
-        sender: 'bot'
+        text: response.replace(/For more details, visit \/[a-zA-Z-]+/, '').trim(),
+        sender: 'bot',
+        reference
       };
       setMessages(prev => [...prev, botResponse]);
-    }, 500);
-
-    setInputText('');
+    } catch (error) {
+      const errorMessage: Message = {
+        text: "I apologize, but I'm having trouble connecting right now. Please try again later.",
+        sender: 'bot'
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleQuickQuestion = (question: QuickQuestion) => {
+  const handleQuickQuestion = async (question: QuickQuestion) => {
     const userMessage: Message = { text: question.text, sender: 'user' };
     setMessages(prev => [...prev, userMessage]);
+    setIsLoading(true);
 
-    setTimeout(() => {
+    try {
+      const prompt = buildPromptWithContext(question.prompt);
+      const response = await getGeminiResponse(prompt);
+      
+      // Extract reference if present
+      const referenceMatch = response.match(/For more details, visit (\/[a-zA-Z-]+)/);
+      const reference = referenceMatch ? referenceMatch[1] : undefined;
+      
       const botResponse: Message = {
-        text: question.response,
-        sender: 'bot'
+        text: response.replace(/For more details, visit \/[a-zA-Z-]+/, '').trim(),
+        sender: 'bot',
+        reference
       };
       setMessages(prev => [...prev, botResponse]);
-    }, 500);
-  };
-
-  const getBotResponse = (input: string): string => {
-    const lowerInput = input.toLowerCase();
-    
-    // Greetings
-    if (lowerInput.includes('hello') || lowerInput.includes('hi')) {
-      return 'Hello! Welcome to ElevaTree! How can I assist you with your career growth journey today?';
+    } catch (error) {
+      const errorMessage: Message = {
+        text: "I apologize, but I'm having trouble connecting right now. Please try again later.",
+        sender: 'bot'
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
     }
-
-    // Mentor related queries
-    if (lowerInput.includes('hemasree')) {
-      return 'Hemasree is pursuing B.Tech in Information Technology. She transformed from being an average student who struggled with mathematics to becoming proficient in technology. Her journey of overcoming academic challenges and building confidence makes her an inspiring mentor for students facing similar struggles.';
-    } else if (lowerInput.includes('joy') || lowerInput.includes('rechal')) {
-      return 'Joy Rechal has a unique journey from Biology to Information Technology. Despite being an average student, she cleared NEET on her first attempt through self-study. Her experience of adapting to a completely new field and succeeding makes her an excellent mentor for students navigating career transitions.';
-    } else if (lowerInput.includes('nesapriyan')) {
-      return 'Nesapriyan is pursuing B.Tech in AI & Machine Learning. After facing personal challenges and career uncertainty, he found his path in technology while maintaining his passion for music. His story of balancing technical education with creative pursuits inspires students to embrace their diverse interests while pursuing their career goals.';
-    } else if (lowerInput.includes('mentor')) {
-      return 'ElevaTree offers a unique student-driven mentorship program where successful students share their experiences and insights to help guide others. Our mentors understand the challenges of academic and career transitions firsthand because they\'ve recently been through similar experiences. Would you like to know about a specific mentor or learn more about our mentorship approach?';
-    }
-
-    // Learning and resources
-    if (lowerInput.includes('course') || lowerInput.includes('learn') || lowerInput.includes('resource')) {
-      return 'We offer comprehensive learning resources including:\n- Technical workshops and webinars\n- Skill development programs\n- One-on-one mentoring sessions\n- Online learning materials\n- Industry best practices guides\nVisit our Resources page to access these materials and start your learning journey!';
-    }
-
-    // Career guidance
-    if (lowerInput.includes('career') || lowerInput.includes('job') || lowerInput.includes('work')) {
-      return 'Our career guidance services include:\n- Professional development planning\n- Resume and portfolio review\n- Interview preparation\n- Industry insights and trends\n- Networking opportunities\nWould you like to connect with a mentor to discuss your career goals?';
-    }
-
-    // Getting started
-    if (lowerInput.includes('start') || lowerInput.includes('begin') || lowerInput.includes('new')) {
-      return 'To get started with ElevaTree:\n1. Create your account\n2. Browse our mentor profiles\n3. Schedule a free consultation\n4. Access our learning resources\n5. Begin your growth journey\nWould you like help with any of these steps?';
-    }
-
-    // Contact information
-    if (lowerInput.includes('contact') || lowerInput.includes('email') || lowerInput.includes('reach')) {
-      return 'You can reach us through:\n- Email: support@elevatree.com\n- Contact form on our website\n- Schedule a call with our team\nWe typically respond within 24 hours to all inquiries.';
-    }
-
-    // Default response
-    return 'I understand you\'re interested in learning more. Could you please specify what aspect of ElevaTree you\'d like to know about? I can help with information about our mentors, resources, career guidance, or getting started!';
   };
 
   return (
@@ -168,9 +195,28 @@ export const ChatBot = () => {
                   }`}
                 >
                   {message.text}
+                  {message.reference && (
+                    <a
+                      href={message.reference}
+                      className="block mt-2 text-sm text-emerald-600 hover:text-emerald-700"
+                    >
+                      Learn more →
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="bg-gray-50 text-gray-800 border border-gray-100 max-w-[85%] rounded-2xl px-6 py-4 shadow-sm">
+                  <div className="flex gap-2">
+                    <div className="w-2 h-2 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                    <div className="w-2 h-2 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                    <div className="w-2 h-2 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                  </div>
+                </div>
+              </div>
+            )}
             <div ref={messagesEndRef} style={{ float: "left", clear: "both" }} />
           </div>
 
@@ -185,7 +231,10 @@ export const ChatBot = () => {
               />
               <button
                 type="submit"
-                className="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 sm:px-8 py-2 sm:py-4 rounded-full hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-lg font-medium"
+                disabled={isLoading}
+                className={`bg-gradient-to-r from-green-500 to-green-600 text-white px-4 sm:px-8 py-2 sm:py-4 rounded-full hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-lg font-medium ${
+                  isLoading ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
               >
                 Send →
               </button>
