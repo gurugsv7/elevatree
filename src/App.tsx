@@ -11,12 +11,13 @@ import { Resources } from './pages/Resources';
 import { Dashboard } from './pages/Dashboard';
 import { GetStarted } from './pages/GetStarted';
 import { Profile } from './pages/Profile';
+import { ProfileSetup } from './pages/ProfileSetup';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
 // Layout wrapper component that conditionally renders Navigation and Footer
 function LayoutWrapper() {
   const location = useLocation();
-  const hideElements = ['/signin', '/profile'].includes(location.pathname);
+  const hideElements = ['/signin', '/profile-setup'].includes(location.pathname);
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -37,6 +38,12 @@ function App() {
         <Route path="/signin" element={
           <ProtectedRoute requireAuth={false}>
             <SignIn />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/profile-setup" element={
+          <ProtectedRoute>
+            <ProfileSetup />
           </ProtectedRoute>
         } />
 

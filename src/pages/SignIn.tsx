@@ -29,8 +29,8 @@ export function SignIn() {
           throw new Error('Full name is required for registration');
         }
         await authService.register(formData.email, formData.password, formData.fullName);
-        // Redirect to profile page after registration to complete profile
-        navigate('/profile');
+        // Redirect to profile setup after registration
+        navigate('/profile-setup');
       }
     } catch (err: any) {
       console.error('Auth error:', err);
@@ -48,7 +48,7 @@ export function SignIn() {
       // For Google sign-in, check if profile exists
       const user = JSON.parse(localStorage.getItem('user') || '{}');
       const hasProfile = localStorage.getItem(`profile_${user.uid}`);
-      navigate(hasProfile ? '/' : '/profile');
+      navigate(hasProfile ? '/' : '/profile-setup');
     } catch (err: any) {
       console.error('Google sign-in error:', err);
       setError(err.message || 'Google sign-in failed - please try again');
