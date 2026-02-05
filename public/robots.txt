@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+Disallow: /profile-setup
+Disallow: /dashboard
+Disallow: /signin
+Disallow: /*.json$
+Disallow: /*?*sort=
+Disallow: /*?*page=
+Allow: /public/
+
+# Specific crawlers
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+# Sitemap location
+Sitemap: https://elevatree.in/sitemap.xml

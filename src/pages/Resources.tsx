@@ -1,8 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FileText, Download, BookOpen, ExternalLink } from 'lucide-react';
+import { useSEO } from '../hooks/useSEO';
 
 export function Resources() {
+  useSEO({
+    title: 'Career Resources & Guidance Materials | ElevaTree',
+    description: 'Access comprehensive career guidance resources, guides, and educational materials to help you plan your professional journey. Free resources for career development.',
+    keywords: 'career resources, career guides, learning materials, career planning, professional development resources',
+    ogUrl: 'https://elevatree.in/#/resources',
+    canonicalUrl: 'https://elevatree.in/#/resources'
+  });
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {

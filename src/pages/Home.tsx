@@ -3,8 +3,16 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Users, BookOpen, Target } from 'lucide-react';
 import { motion, Variants, useInView } from 'framer-motion';
 import { ChatBot } from '../components/ChatBot';
+import { useSEO } from '../hooks/useSEO';
 
 export function Home() {
+  useSEO({
+    title: 'ElevaTree - Career Guidance & Mentorship in Pondicherry | Expert Career Counseling',
+    description: 'ElevaTree offers expert career guidance, mentorship, and professional development. Connect with experienced mentors in Pondicherry and elevate your career journey with personalized guidance.',
+    keywords: 'career guidance pondicherry, mentorship, career counseling, professional development, job guidance, career planning, mentor platform',
+    ogUrl: 'https://elevatree.in/',
+    canonicalUrl: 'https://elevatree.in/'
+  });
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {

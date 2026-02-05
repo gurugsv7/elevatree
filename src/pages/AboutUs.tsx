@@ -1,8 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, Target, Award, Globe, Compass, Star, Map, Heart } from 'lucide-react';
+import { useSEO } from '../hooks/useSEO';
 
 export function AboutUs() {
+  useSEO({
+    title: 'About ElevaTree - Career Guidance & Mentorship Platform | Pondicherry',
+    description: 'Learn about ElevaTree\'s mission to guide and empower students with personalized mentorship, expert career counseling, and professional development resources in Pondicherry.',
+    keywords: 'about elevatree, career guidance platform, mentorship program, student support, pondicherry education',
+    ogUrl: 'https://elevatree.in/#/about',
+    canonicalUrl: 'https://elevatree.in/#/about'
+  });
   return (
     <motion.div className="flex flex-col">
       {/* Hero Section */}

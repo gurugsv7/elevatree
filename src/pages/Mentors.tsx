@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useSEO } from '../hooks/useSEO';
 
 const nesapriyan = new URL('../assets/nesapriyan.png', import.meta.url).href;
 const jayapriya = new URL('../assets/Jayapriya.png', import.meta.url).href;
@@ -169,6 +170,14 @@ const mentors: Mentor[] = [
 ];
 
 export function Mentors() {
+  useSEO({
+    title: 'Expert Mentors - Career Guidance & Professional Development | ElevaTree',
+    description: 'Connect with our expert mentors specializing in career guidance, professional development, and mentorship. Get personalized guidance from experienced professionals in Pondicherry.',
+    keywords: 'expert mentors, career mentors, professional mentors, career guidance mentors, mentorship programs, pondicherry',
+    ogUrl: 'https://elevatree.in/#/mentors',
+    canonicalUrl: 'https://elevatree.in/#/mentors'
+  });
+
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const navigate = useNavigate();

@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { User, Mail, Phone, CalendarDays, BookOpen, Heart } from 'lucide-react';
 import { auth } from '../config/firebase';
 import { updateProfile } from 'firebase/auth';
-import emailjs from '@emailjs/browser';
 
 interface ProfileFormData {
   fullName: string;
@@ -14,6 +13,70 @@ interface ProfileFormData {
   contact: string;
   fieldOfInterest: string;
 }
+
+const InputField = ({
+  label, 
+  name, 
+  type = 'text', 
+  value, 
+  onChange, 
+  placeholder = '', 
+  required = true,
+  disabled = false,
+  icon: Icon,
+  rows = undefined
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  placeholder?: string;
+  required?: boolean;
+  disabled?: boolean;
+  icon: React.ComponentType<any>;
+  rows?: number;
+}) => (
+  <div className="relative">
+    <label htmlFor={name} className="block text-base font-medium text-gray-700 mb-2">
+      {label}
+    </label>
+    <div className="relative rounded-md shadow-sm">
+      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <Icon className="h-5 w-5 text-gray-400" />
+      </div>
+      {rows ? (
+        <textarea
+          id={name}
+          name={name}
+          rows={rows}
+          required={required}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+          className={`block w-full pl-10 pt-2 ${
+            disabled ? 'bg-gray-50' : ''
+          } border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 text-base resize-y min-h-[120px]`}
+          placeholder={placeholder}
+        />
+      ) : (
+        <input
+          type={type}
+          id={name}
+          name={name}
+          required={required}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+          className={`block w-full pl-10 ${
+            disabled ? 'bg-gray-50' : ''
+          } border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 text-base py-2`}
+          placeholder={placeholder}
+        />
+      )}
+    </div>
+  </div>
+);
 
 export function ProfileSetup() {
   const navigate = useNavigate();
@@ -63,8 +126,6 @@ export function ProfileSetup() {
         throw new Error('No authenticated user found');
       }
 
-      emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
-
       await updateProfile(user, {
         displayName: formData.fullName
       });
@@ -76,40 +137,18 @@ export function ProfileSetup() {
         fieldOfInterest: formData.fieldOfInterest
       }));
 
-      await sendProfileEmail(formData);
+      setSuccessMessage('Profile created successfully!');
+      setIsLoading(false);
+      
+      // Redirect after a short delay
+      setTimeout(() => {
+        navigate('/profile');
+      }, 1500);
       
     } catch (err: any) {
       console.error('Profile update failed:', err);
       setError(err.message || 'Failed to update profile');
       setIsLoading(false);
-    }
-  };
-
-  const sendProfileEmail = async (profileData: ProfileFormData) => {
-    try {
-      const templateParams = {
-        to_email: import.meta.env.VITE_ADMIN_EMAIL,
-        from_name: profileData.fullName,
-        from_email: profileData.email,
-        date_of_birth: profileData.dateOfBirth,
-        contact: profileData.contact,
-        bio: profileData.bio,
-        field_of_interest: profileData.fieldOfInterest
-      };
-
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        templateParams,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      );
-
-      setSuccessMessage('Profile created successfully!');
-      navigate('/profile');
-
-    } catch (error) {
-      console.error('Failed to send email:', error);
-      throw error;
     }
   };
 
@@ -120,70 +159,6 @@ export function ProfileSetup() {
       [name]: value
     }));
   };
-
-  const InputField = ({
-    label, 
-    name, 
-    type = 'text', 
-    value, 
-    onChange, 
-    placeholder = '', 
-    required = true,
-    disabled = false,
-    icon: Icon,
-    rows = undefined
-  }: {
-    label: string;
-    name: string;
-    type?: string;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-    placeholder?: string;
-    required?: boolean;
-    disabled?: boolean;
-    icon: React.ComponentType<any>;
-    rows?: number;
-  }) => (
-    <div className="relative">
-      <label htmlFor={name} className="block text-base font-medium text-gray-700 mb-2">
-        {label}
-      </label>
-      <div className="relative rounded-md shadow-sm">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <Icon className="h-5 w-5 text-gray-400" />
-        </div>
-        {rows ? (
-          <textarea
-            id={name}
-            name={name}
-            rows={rows}
-            required={required}
-            value={value}
-            onChange={onChange}
-            disabled={disabled}
-            className={`block w-full pl-10 pt-2 ${
-              disabled ? 'bg-gray-50' : ''
-            } border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 text-base resize-y min-h-[120px]`}
-            placeholder={placeholder}
-          />
-        ) : (
-          <input
-            type={type}
-            id={name}
-            name={name}
-            required={required}
-            value={value}
-            onChange={onChange}
-            disabled={disabled}
-            className={`block w-full pl-10 ${
-              disabled ? 'bg-gray-50' : ''
-            } border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 text-base py-2`}
-            placeholder={placeholder}
-          />
-        )}
-      </div>
-    </div>
-  );
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-emerald-600 to-teal-600 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
